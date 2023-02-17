@@ -3,6 +3,8 @@ package com.example.parkinsonvethaichi
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 
 
 class HomeActivity : AppCompatActivity() {
@@ -11,8 +13,8 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
         supportActionBar?.hide()
 
-
     }
+
 
 
 
