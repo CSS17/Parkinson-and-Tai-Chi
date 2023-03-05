@@ -19,7 +19,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.256"
-        app:srcCompat="@drawable/tai_chi_hareket" />
+        app:srcCompat="@drawable/tai_chi_hareket"
+        android:onClick="Movements"
+        />
 
     <TextView
         android:id="@+id/textView"
@@ -48,7 +50,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.254"
-        app:srcCompat="@drawable/about_tai_chi" />
+        app:srcCompat="@drawable/about_tai_chi"
+        android:onClick="ParkinsonTaiChi"
+        />
 
 
     <TextView
@@ -77,7 +81,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.718"
-        app:srcCompat="@drawable/medicine" />
+        app:srcCompat="@drawable/medicine"
+        android:onClick="Medicine"
+        />
 
     <TextView
         android:id="@+id/textView2"
