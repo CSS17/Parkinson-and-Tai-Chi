@@ -13,13 +13,28 @@
         android:theme="@style/Theme.ParkinsonVeThaiChi"
         tools:targetApi="31">
         <activity
+            android:name=".Statistic"
+            android:exported="false"
+            android:parentActivityName=".HomeActivity"
+            >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".StatiscticPassAnimation"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Medicine"
             android:exported="false"
             android:parentActivityName=".HomeActivity">
             <meta-data
                 android:name="android.app.lib_name"
-                android:value=""
-                />
+                android:value="" />
         </activity>
         <activity
             android:name=".MedicinePassAnimation"

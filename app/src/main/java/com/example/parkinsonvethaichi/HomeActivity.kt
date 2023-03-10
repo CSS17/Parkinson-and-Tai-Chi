@@ -30,5 +30,10 @@ class HomeActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun Statistics(view: View) {
+        intent = Intent(applicationContext, StatiscticPassAnimation::class.java)
+        startActivity(intent)
+    }
+
 
 }
