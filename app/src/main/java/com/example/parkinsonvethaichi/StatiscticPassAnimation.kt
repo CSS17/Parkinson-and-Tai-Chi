@@ -14,7 +14,7 @@ class StatiscticPassAnimation : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {}
 
             override fun onFinish() {
-                val intent= Intent(applicationContext,Movements::class.java)
+                val intent= Intent(applicationContext,Statistic::class.java)
                 startActivity(intent)
             }
         }

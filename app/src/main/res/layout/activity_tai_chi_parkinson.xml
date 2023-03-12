@@ -1,9 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TaiChiParkinson">
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical"
+
+           >
+         <TextView
+             android:id="@+id/ParkinsonTitle"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:text="Parkinson Hastalığı Nedir?"
+             android:textAlignment="center"
+             android:textSize="30dp"
+             android:textStyle="bold|italic"
+             android:textColor="#F10B0B"
+             android:background="@drawable/frame"
+
+             >
+         </TextView>
+
+           <TextView
+               android:id="@+id/ParkinsonInfo"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_marginLeft="5dp"
+               android:visibility="gone"
+               android:text="Parkinson hastalığı, beyinde dopamin adı verilen, beyin hücrelerinin birbirleriyle haberleşmesini sağlayan maddeyi üreten hücrelerin bozulması sonucu ortaya çıkar. Beyinde dopamini üreten hücreler hareketlerin kontrolünden, uyumundan ve akıcılığından sorumludur.Hareketlerde yavaşlık, dinlenme halindeyken titreme, psikiyatrik rahatsızlıklarla kendini belli eden hastalık, çoğunlukla 60 yaş sonrası kişilerde görülür. Ancak genetik nedenlerle 40’lı yaşlarda da rastlanabilir. Tedavide ilk seçenek ilaçlardır. Ancak bazı kişilerde ilaç tedavisi yetersiz kaldığında ya da yoğun yan etkiler gelişirse “beyin pili” yöntemi tercih edilebilir.
+Atipik Parkinson veya Parkinson plus hastalıklar erken dönemlerde Parkinson hastalığını taklit edebilirler. Klasik Parkinson diyebilmek için ana bulgulara ek olarak kısa dönem bile olsa hastanın Levodopa’ya yanıtı iyi olmalıdır.
+Atipik Parkinson hastalığı denildiğinde multiple sistem atrofisi, ilerleyici supranukleer palsi ve kortikobazal dejenerasyon dediğimiz hastalıkları sayabiliriz. İkincil parkinsonizm nondejeneratif olarak tanımlanabilen farklı nedenlerin sonucunda görülür; bunlar ilaç kullanımı, toksine maruz kalma, beyinde su toplama ya da beyin tümörü olabilir."
+               android:textColor="@color/black"
+               android:textSize="20dp"
+               android:textStyle="bold|italic"
+               android:layout_marginTop="10dp"
+               android:layout_marginBottom="1dp"
+
+               ></TextView>
+
+           <TextView
+               android:id="@+id/ParkinsonReasonsTitle"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:text="Parkinson Hastalığının Nedenleri Nelerdir?"
+               android:textAlignment="center"
+               android:textSize="30dp"
+               android:textStyle="bold|italic"
+               android:textColor="#F10B0B"
+               android:background="@drawable/frame"
+               >
+           </TextView>
+
+           <TextView
+               android:id="@+id/ParkinsonReasonsInfo"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:text="Parkinson hastalığı beyinde dopamin üreten bölgedeki hücre kaybı nedeniyle bu maddenin az salınımı sonucu oluşur. Bu hücre kaybına zirai ilaçlar gibi kimi kimyasallar neden olabilmekle beraber, genetik faktörler de sebep olabilmektedir."
+               android:textColor="@color/black"
+               android:layout_marginLeft="5dp"
+               android:textSize="20dp"
+               android:textStyle="bold|italic"
+               android:layout_marginTop="10dp"
+               android:visibility="gone"
+               android:layout_marginBottom="1dp"
+               ></TextView>
+
+           <TextView
+               android:id="@+id/SymptomsTitle"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:text="Parkinson Hastalığının Belirtileri Nelerdir?"
+               android:textAlignment="center"
+               android:textSize="30dp"
+               android:textStyle="bold|italic"
+               android:textColor="#F10B0B"
+               android:background="@drawable/frame"
+               >
+           </TextView>
+
+           <TextView
+               android:id="@+id/SymptomsInfo"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:text="Parkinson hastalığı beyin sapında dopamin üreten bölgedeki hücre kaybı nedeniyle bu maddenin az salınımı sonucu oluşur. Hastaların hareketleriyle ilişkili olan bu bulguların yanında birçok farklı şikayeti de olabilir. Yorgunluk, bilişsel fonksiyonlarda azalma, depresyon, anksiyete, davranış bozuklukları, görme ile ilgili bozulmalar, kilo kaybı, uyku anormallikleri ve ağrı gibi.
+Klasik bulguları (tremor) titreme, (rijidite) katılık, (bradikinezi) hareketlerde yavaşlama ve (postural instabilite) ayakta duruş bozukluğudur. Parkinson hastalığı sıklıkla yavaş yavaş ortaya çıkar ve vücuttaki bulguları sıklıkla asimetriktir. Kademeli olarak hastalığın durumunda ilerleme görülür. Dopaminerjik ilaçlara yanıt vardır."
+               android:textColor="@color/black"
+               android:layout_marginLeft="5dp"
+               android:textSize="20dp"
+               android:textStyle="bold|italic"
+               android:layout_marginTop="10dp"
+               android:visibility="gone"
+               android:layout_marginBottom="1dp"
+               ></TextView>
+
+           <TextView
+               android:id="@+id/EffectsTitle"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:text="Parkinson Hastalığının Etkileri Nelerdir?"
+               android:textAlignment="center"
+               android:textSize="30dp"
+               android:textStyle="bold|italic"
+               android:textColor="#F10B0B"
+               android:background="@drawable/frame"
+               >
+           </TextView>
+
+           <TextView
+               android:id="@+id/EffectsInfo"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:text="Parkinson hastalığının ana bulgularını tek tek ele alırsak;
+Titreme, el titremesi; Başparmağın kontrolsüz hareket etmesi, çene ve dudakta oluşan titremeler, bazen bacak kaslarında olan seğirmeler eşlik edebilir. Unutmamak gerekir ki her el titremesi Parkinson hastalığı anlamına gelmez.
+Parkinson hastalığındaki titreme eller istirahat halindeyken olur. Stresli ve heyecanlıyken olan, kahve ya da ilaç tüketimi sonrası gelişen, ya da esansiyel tremor denilen ailevi geçişli tremor hastalığı ile görülen titremelerden ayırt etmek gerekir.
+Hareketlerde Yavaşlama (Bradikinezi); Parkinson Hastalığında harekete başlama ve hareketi devam ettirmede zorlanma sık görülen bulgularıdır. Hastalar sıklıkla kısa adımlarla yürürler ve kaslarda sertleşme nedeniyle vücut ağrıları olur.
+Konuşmada Değişimler: Konuşma hızında artış veya alçak ses tonuyla konuşma, konuşurken yüz mimiklerinin azalması ve konuşmanın monotonlaşması parkinson bulguları arasında yer alır.
+El Yazısının bozulup küçülmesi; Ani gelişen el yazısındaki kötüleşmeler, kelimelerde küçülmeler veya kelimelerin yakın yazılması parkinson hastalığını akla getirmelidir."
+               android:textColor="@color/black"
+               android:layout_marginLeft="5dp"
+               android:textSize="20dp"
+               android:textStyle="bold|italic"
+               android:layout_marginTop="10dp"
+               android:visibility="gone"
+               android:layout_marginBottom="1dp"
+               ></TextView>
+
+           <TextView
+               android:id="@+id/TreatmentTitle"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:text="Parkinson Hastalığının Tedavisi Nedir?"
+               android:textAlignment="center"
+               android:textSize="30dp"
+               android:textStyle="bold|italic"
+               android:textColor="#F10B0B"
+               android:background="@drawable/frame"
+               >
+           </TextView>
+
+           <TextView
+               android:id="@+id/TreatmentInfo"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:text="Parkinson tedavisinde öncelik ilaçtır. İlaç tedavisi ile beyindeki dopamin maddesinin üretim açığı kapatılıyor. İlaçlar mevcut şikayetlerin azalmasını sağlasa da hastalığın ilerlemesini önleyemiyor. Dolasıyla günümüzde Parkinson’un kesin tedavisi bulunmuyor. Tedavide hastanın yaşı, hastalığın belirtileri ve evresine bağlı olarak tedavi yöntemi belirleniyor.
+İlaç tedavisi ile şikayetlerin ortadan kalkması sağlanıyor ve hastalığın ilerlemesi yavaşlatılıyor. Ancak hastalık düzelmiyorsa ya da ilaç kullanımı ile ilişkili yan etkiler ortaya çıkmışsa; cerrahi tedavilere de başvurulabiliyor.
+Cerrahi tedavide; beyin pili (derin beyin stimulasyonu) ve beyne lezyon cerrahisi (ablatif yöntemler) olmak üzere iki seçenek bulunuyor. Beyin pili yöntemi ile parkinson’un etkinleri önemli ölçüde azaltılıyor ve kişinin hem günlük hayatını hem de konforunu kısıtlayan eylemlerde düzelme görülüyor.
+Parkinson Tedavisinde Beyin Pili Yöntemi
+Bu yöntemde beyinde özellikli bölgelere elektrod (elektronik çubuklar) tam doğrulukla yerleştirilerek, bozulmuş olan elektriksel aktivitenin düzenlenmesi amaçlanıyor. Pilin, beyinde yerleştirileceği hedef bölge kişinin mevcut şikayetine ve ek problemlerine göre ameliyat öncesinde belirleniyor.
+Ameliyatta lokal anestezi altında kişinin başına çerçeve yerleştirilip beyin tomografisi ile MR görüntüsü birleştirilerek hedefin koordinatları çok hassas bir şekilde düzenleniyor. Beyinde çekirdek denilen noktasal hedeflere saç kılı kalınlığında elektrot konuluyor. En iyi etkinin gözlendiği beyin bölgesine kalıcı 2 adet elektrot yerleştiriliyor.
+Sonrasında çerçeve çıkarılıyor ve hasta uyutularak beyne yerleştirilen elektrotlar uzatma kablosuyla cilt altından köprücük kemiğinin altına kalp pilinde olduğu gibi jeneratör mekanizmasıyla birleştiriliyor.
+Parkinson Etkileri Önemli Ölçüde Azalıyor
+Ameliyatın ardından titreme, yavaş hareket etme ve ilacın yan etkisi olan istemsiz kasılmalar azalıyor. Kişiler ayakkabı bağlamak, gömleği iliklemek ve çay içmek gibi günlük ihtiyaçlarını kendileri karşılayabilir hale geliyor.
+Bazı kişilerin yazma becerisinde de düzelme olabiliyor. Günlük yaşama katılan kişiler böylelikle bir başkasına bağımlı yaşamaktan kurtulmuş oluyor, hayat kaliteleri yükselebiliyor.
+Egzersiz Yapmak Hastalığın önlenmesi günümüzde henüz mümkün değil. Parkinson hastalığı ile mücadelede erken teşhis, uygun ilaçlarla doğru tedavi seçimi, fizyoterapi ve egzersiz çok önemli.
+Egzersiz sayesinde yürüyüş, denge ve duruş düzelebiliyor. Ayrıca hastalığın depresyon, durgunluk, yorgunluk ve kabızlık gibi başka psikolojik ve fizyolojik tepkileri de olumlu yönde etkileniyor."
+               android:textColor="@color/black"
+               android:layout_marginLeft="5dp"
+               android:textSize="20dp"
+               android:textStyle="bold|italic"
+               android:layout_marginTop="10dp"
+               android:visibility="gone"
+               android:layout_marginBottom="1dp"
+               ></TextView>
+
+           <TextView
+               android:id="@+id/TaiChiTitle"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:text="Tai Chi Nedir?"
+               android:textAlignment="center"
+               android:textSize="30dp"
+               android:textStyle="bold|italic"
+               android:textColor="#3F51B5"
+               android:background="@drawable/frame"
+
+               >
+           </TextView>
+
+           <TextView
+               android:id="@+id/TaiChiInfo"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:text="Tai Chi (Tai Chi Chuan), 17. yy’da başlangıçta dövüş sanatı olarak geliştirilen, sonrasında sağlıklı yaşam için uygulanmaya başlayarak yaygınlaşan, zihin-beden egzersizidir.
+İdeal postür korunarak yapılan bu egzersizler, bazı temel prensiplere dayalı olarak uygulanır. Bunlar; zihinsel ve bedensel gevşeme, ağırlık aktarma, kontrollü nefes ve mental konsantrasyon olarak özetlenebilir. Çin kökenli bu egzersiz metodunun ortaya çıkış felsefesi, yumuşaklığın sertliği yenebileceği hipotezine dayanmaktadır."
+               android:textColor="@color/black"
+               android:layout_marginLeft="5dp"
+               android:textSize="20dp"
+               android:textStyle="bold|italic"
+               android:layout_marginTop="10dp"
+               android:visibility="gone"
+               android:layout_marginBottom="1dp"
+               ></TextView>
+
+         <TextView
+             android:id="@+id/TaiChiEffectTitle"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:text="Tai Chi Egzersizlerinin Parkinson Hastalığına Etkileri Nelerdir?"
+             android:textAlignment="center"
+             android:textSize="30dp"
+             android:textStyle="bold|italic"
+             android:textColor="#3F51B5"
+             android:background="@drawable/frame"
+             >
+         </TextView>
+
+         <TextView
+             android:id="@+id/TaiChiEffectInfo"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:text="Parkinson hastalığında önerilecek egzersiz programının hedefleri;esneklik ve eklem hareket açıklığını arttırmak, kifozu önleyerek postürü düzeltmek, kas gücünü ve koordinasyonunu arttırmak,dengeyi geliştirmek üzerine odaklanmalıdır.
+Yapılan az sayıda çalışma, ritmik ağırlık aktarma, simetrik adımlama, stabiliteyi arttıran yavaş ve kontrollü hareketleri içeren Tai Chi’nin, hafif ve orta dereceli Parkinson hastalığında, denge ve düşmeler üzerine etkili ve güvenli olduğunu göstermiştir.
+Li ve Ark.nın 195 Parkinson hastası üzerinde yaptıkları çalışmada, Tai Chi, güçlendirme ve germe egzersizleri karşılaştırılmıştır. Üç grubun da 24 hafta boyunca, haftada 2 gün 60 dakika süre ile egzersiz yaptığı bu çalışmada, Tai Chi grubunda,mobilite, kas gücü ve denge skorlarında istatistiksel olarak anlamlı artış sağlandığı ve daha da önemlisi Tai Chi ve güçlendirme egzersizleri yapan gruplarda düşme riskinde azalma tespit edilmiştir."
+             android:textColor="@color/black"
+             android:layout_marginLeft="5dp"
+             android:textSize="20dp"
+             android:textStyle="bold|italic"
+             android:layout_marginTop="10dp"
+             android:visibility="gone"
+             android:layout_marginBottom="1dp"
+             ></TextView>
+
+       </LinearLayout>
+
+
+
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
