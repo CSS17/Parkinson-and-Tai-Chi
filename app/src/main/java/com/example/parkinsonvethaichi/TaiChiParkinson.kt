@@ -27,55 +27,21 @@ class TaiChiParkinson : AppCompatActivity() {
         var parkinsonreasonscount=0
         var symptomscount=0
         var effectscount=0
+        var treatmentcount=0
+        var taichicount=0
+        var taichieffectcount=0
 
-        val filename = "ParkinsonHastaligi_nedir.txt" // replace with the name of your file
-        val startRow = 1 // replace with the row number where you want to start saving
-        val endRow = 13 // replace with the row number where you want to stop saving
+
         val ParkinsonInfo= findViewById<TextView>(R.id.ParkinsonInfo)
         val ParkinsonReasonsInfo = findViewById<TextView>(R.id.ParkinsonReasonsInfo)
         val SymptomsInfo = findViewById<TextView>(R.id.SymptomsInfo)
         val EffectsInfo= findViewById<TextView>(R.id.EffectsInfo)
+        val TreatmentInfo=findViewById<TextView>(R.id.TreatmentInfo)
+        val TaiChiInfo=findViewById<TextView>(R.id.TaiChiInfo)
+        val TaiChiEffectInfo=findViewById<TextView>(R.id.TaiChiEffectInfo)
 
-        try {
-            val inputStream: InputStream = openFileInput(filename)
-            val reader = BufferedReader(InputStreamReader(inputStream))
-            val outputStream: FileOutputStream = openFileOutput("output.txt", Context.MODE_PRIVATE)
-            val writer = BufferedWriter(OutputStreamWriter(outputStream))
-            var line: String?
-            var count = 0
-            while (reader.readLine().also { line = it } != null && count < endRow) {
-                // Read the file until the specified end row
-                count++
-                if (count <= 4) {
-                    // Write the line to the output file if it is between the start and end rows
 
-                    val existingString = ParkinsonInfo.text.toString()
-                    ParkinsonInfo.text = "$existingString$line"
-                }
-                else if(count>4 && count<=5){
 
-                    val existingString = ParkinsonReasonsInfo.text.toString()
-                    ParkinsonReasonsInfo.text = "$existingString$line"
-                }
-                else if(count>5 && count<=7){
-
-                    val existingString = SymptomsInfo.text.toString()
-                    SymptomsInfo.text = "$existingString$line"
-                }
-                else if(count>8 && count<=13){
-
-                    val existingString = EffectsInfo.text.toString()
-                    EffectsInfo.text = "$existingString$line"
-                }
-
-            }
-            reader.close()
-            writer.close()
-        } catch (e: FileNotFoundException) {
-            e.printStackTrace()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
 
         val ParkinsonTitle = findViewById<TextView>(R.id.ParkinsonTitle)
 
@@ -147,7 +113,59 @@ class TaiChiParkinson : AppCompatActivity() {
 
         }
 
+        val TreatmentTitle = findViewById<TextView>(R.id.TreatmentTitle)
 
+        TreatmentTitle.setOnClickListener {
+
+            if (treatmentcount % 2 == 0) {
+                TreatmentTitle.setBackgroundColor(255)
+                TreatmentInfo.visibility = View.VISIBLE
+                treatmentcount += 1
+            } else {
+                TreatmentTitle.setBackgroundResource(R.drawable.frame)
+                TreatmentInfo.visibility = View.GONE
+                treatmentcount += 1
+
+
+            }
+
+        }
+
+        val TaiChiTitle = findViewById<TextView>(R.id.TaiChiTitle)
+
+        TaiChiTitle.setOnClickListener {
+
+            if (taichicount % 2 == 0) {
+                TaiChiTitle.setBackgroundColor(255)
+                TaiChiInfo.visibility = View.VISIBLE
+                taichicount += 1
+            } else {
+                TaiChiTitle.setBackgroundResource(R.drawable.frame)
+                TaiChiInfo.visibility = View.GONE
+                taichicount += 1
+
+
+            }
+
+        }
+
+        val TaiChiEffectTitle = findViewById<TextView>(R.id.TaiChiEffectTitle)
+
+        TaiChiEffectTitle.setOnClickListener {
+
+            if (taichieffectcount % 2 == 0) {
+                TaiChiEffectTitle.setBackgroundColor(255)
+                TaiChiEffectInfo.visibility = View.VISIBLE
+                taichieffectcount += 1
+            } else {
+                TaiChiEffectTitle.setBackgroundResource(R.drawable.frame)
+                TaiChiEffectInfo.visibility = View.GONE
+                taichieffectcount += 1
+
+
+            }
+
+        }
 
 
 
