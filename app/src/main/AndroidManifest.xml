@@ -30,6 +30,7 @@
                 android:value="" />
         </activity>
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".Medicine"
             android:exported="false"
             android:parentActivityName=".HomeActivity">
