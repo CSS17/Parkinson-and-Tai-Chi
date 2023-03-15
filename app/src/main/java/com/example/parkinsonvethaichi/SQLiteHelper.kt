@@ -6,11 +6,12 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 
 
 class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION){
 
-    val mdcList:ArrayList<MedicineModel> = ArrayList()
+
     companion object{
         private const val DATABASE_VERSION=1
         private const val DATABASE_NAME="medicine.db"
@@ -51,7 +52,7 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,nu
 
     @SuppressLint("Range")
     fun getAllMedicine(): ArrayList<MedicineModel>{
-
+        val mdcList:ArrayList<MedicineModel> = ArrayList()
         val selectQuery = "SELECT * FROM $TBL_MEDICINE"
         val db = this.readableDatabase
 
@@ -78,7 +79,10 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,nu
                 medicine_hour = cursor.getString(cursor.getColumnIndex("medicine_hour"))
                 medicine_minute = cursor.getString(cursor.getColumnIndex("medicine_minute"))
 
-                val mdc = MedicineModel(id=id,medicine_name=medicine_name, medicine_hour=medicine_hour,medicine_minute=medicine_minute )
+                val mdc = MedicineModel(
+                    id=id,
+                    medicine_name =medicine_name, medicine_hour =medicine_hour,
+                    medicine_minute =medicine_minute )
                 mdcList.add(mdc)
             } while(cursor.moveToNext())
         }
@@ -87,6 +91,7 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,nu
 
 
     fun deleteRecord(medicineId:Int){
+        Log.d("SATURN:  ",medicineId.toString())
         val db = this.writableDatabase
         val tableName = "TBL_MEDICINE"
         val whereClause = "id = ?"
