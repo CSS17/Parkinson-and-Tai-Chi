@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper
 
 class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION){
 
-
+    val mdcList:ArrayList<MedicineModel> = ArrayList()
     companion object{
         private const val DATABASE_VERSION=1
         private const val DATABASE_NAME="medicine.db"
@@ -51,7 +51,7 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,nu
 
     @SuppressLint("Range")
     fun getAllMedicine(): ArrayList<MedicineModel>{
-        val mdcList:ArrayList<MedicineModel> = ArrayList()
+
         val selectQuery = "SELECT * FROM $TBL_MEDICINE"
         val db = this.readableDatabase
 
@@ -83,6 +83,16 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,nu
             } while(cursor.moveToNext())
         }
         return mdcList
+    }
+
+
+    fun deleteRecord(medicineId:Int){
+        val db = this.writableDatabase
+        val tableName = "TBL_MEDICINE"
+        val whereClause = "id = ?"
+        val whereArgs = arrayOf("$medicineId")
+        db.delete(tableName, whereClause, whereArgs)
+        db.close()
     }
 
 }

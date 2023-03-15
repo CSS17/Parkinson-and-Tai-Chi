@@ -47,7 +47,7 @@
         <ImageButton
             android:layout_width="60dp"
             android:layout_height="64dp"
-
+            android:id="@+id/delete"
             android:scaleType="fitCenter"
             android:src="@drawable/cross"
             app:layout_constraintBottom_toBottomOf="parent"

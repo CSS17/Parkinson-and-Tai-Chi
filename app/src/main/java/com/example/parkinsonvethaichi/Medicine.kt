@@ -1,6 +1,7 @@
 package com.example.parkinsonvethaichi
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -38,8 +39,14 @@ class Medicine : AppCompatActivity() {
         medicineList=ArrayList()
 
 
-        medicineAdapter= MedicineAdapter(mdcList)
+        medicineAdapter= MedicineAdapter(mdcList,this)
         recyclerView.adapter=medicineAdapter
+
+        medicineAdapter.onItemClick={
+
+
+
+        }
 
 
         hourselect()
@@ -100,9 +107,10 @@ class Medicine : AppCompatActivity() {
                 medicinename.setText(" ")
                 minutespinner.setSelection(0)
                 hourspinner.setSelection(0)
+                sqLiteHelper = SQLiteHelper(this)
                 mdcList = sqLiteHelper.getAllMedicine()
                 medicineList=ArrayList()
-                medicineAdapter= MedicineAdapter(mdcList)
+                medicineAdapter= MedicineAdapter(mdcList,this)
                 recyclerView.adapter=medicineAdapter
             }
             else{
@@ -125,6 +133,14 @@ class Medicine : AppCompatActivity() {
                 medicinename.setHint("Your hint")
             }
         })
+
+    }
+
+    fun deleteMedicine(){
+        mdcList = sqLiteHelper.getAllMedicine()
+        medicineList=ArrayList()
+        medicineAdapter= MedicineAdapter(mdcList,this)
+        recyclerView.adapter=medicineAdapter
 
     }
 
