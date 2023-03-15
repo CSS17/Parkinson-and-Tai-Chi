@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +19,7 @@ class Medicine : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var medicineList: ArrayList<MedicineList>
     private lateinit var medicineAdapter: MedicineAdapter
+    var mdc:MedicineModel?=null
     val hours = arrayOf("00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23")
     val minutes= arrayOf("00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59")
     var medicine_hour = ""
@@ -37,21 +39,23 @@ class Medicine : AppCompatActivity() {
         recyclerView.layoutManager=LinearLayoutManager(this)
 
         medicineList=ArrayList()
-
+        hourselect()
+        minuteselect()
 
         medicineAdapter= MedicineAdapter(mdcList,this)
         recyclerView.adapter=medicineAdapter
 
-        medicineAdapter.onItemClick={
 
 
 
+
+
+        medicineAdapter?.setOnClikItem {
+            mdc=it
         }
-
-
-        hourselect()
-        minuteselect()
-
+        medicineAdapter?.setOnClikDeleteItem {
+            deleteStudent(it.id)
+        }
 
     }
 
@@ -63,7 +67,6 @@ class Medicine : AppCompatActivity() {
 
         hourspinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                Toast.makeText(applicationContext,"Seçilen Saat: "+ hours[p2],Toast.LENGTH_SHORT).show()
                 medicine_hour = hours[p2]
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -80,7 +83,6 @@ class Medicine : AppCompatActivity() {
 
         minutespinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                Toast.makeText(applicationContext,"Seçilen Dakika: "+ minutes[p2],Toast.LENGTH_SHORT).show()
                 medicine_minute = minutes[p2]
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -136,8 +138,29 @@ class Medicine : AppCompatActivity() {
 
     }
 
-    fun deleteMedicine(){
+    private fun deleteStudent(id:Int){
 
+       /* val builder = AlertDialog.Builder(this)
+        builder.setMessage("Are you sure you want to delete item?")
+        builder.setCancelable(true)
+        builder.setPositiveButton("Yes") { dialog, _ ->
+
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton("No"){ dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val alert = builder.create()
+        alert.show()*/
+        Log.d("MERKÜR","GİRİYOMU?")
+        sqLiteHelper.deleteRecord(id)
+        sqLiteHelper = SQLiteHelper(this)
+        mdcList = sqLiteHelper.getAllMedicine()
+        medicineList=ArrayList()
+        medicineAdapter= MedicineAdapter(mdcList,this)
+        recyclerView.adapter=medicineAdapter
 
     }
 
