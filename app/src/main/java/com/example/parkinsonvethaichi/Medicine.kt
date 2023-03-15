@@ -137,10 +137,7 @@ class Medicine : AppCompatActivity() {
     }
 
     fun deleteMedicine(){
-        mdcList = sqLiteHelper.getAllMedicine()
-        medicineList=ArrayList()
-        medicineAdapter= MedicineAdapter(mdcList,this)
-        recyclerView.adapter=medicineAdapter
+
 
     }
 

@@ -51,8 +51,8 @@ class MedicineAdapter(private val medicine_list:ArrayList<MedicineModel>,val con
             val currentItem = medicine_list[holder.adapterPosition]
             Toast.makeText(context,currentItem.medicine_name,Toast.LENGTH_SHORT).show()
             sqLiteHelper.deleteRecord(currentItem.id)
-            val medicine=Medicine()
-            medicine.deleteMedicine()
+
+
             /*val mdcList = sqLiteHelper.getAllMedicine()
             val medicineAdapter= MedicineAdapter(mdcList,context)
             recyclerView.setHasFixedSize(true)
