@@ -1,6 +1,8 @@
 package com.example.parkinsonvethaichi
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.InputFilter
 import android.util.Log
 import android.view.View
 import android.view.View.OnFocusChangeListener
@@ -46,6 +48,11 @@ class Medicine : AppCompatActivity() {
             deleteMedicine(it.id)
         }
 
+    }
+    override fun onBackPressed() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     fun hourselect(){
@@ -117,15 +124,16 @@ class Medicine : AppCompatActivity() {
     private fun deleteMedicine(id:Int){
 
        val builder = AlertDialog.Builder(this)
-        builder.setMessage("Are you sure you want to delete item?")
+        builder.setMessage("İlaç silinsin mi?")
         builder.setCancelable(true)
-        builder.setPositiveButton("Yes") { dialog, _ ->
+        builder.setPositiveButton("Evet") { dialog, _ ->
             sqLiteHelper.deleteRecord(id)
             getMedicines()
             dialog.dismiss()
+            Toast.makeText(this,"İlaç Silindi",Toast.LENGTH_SHORT).show()
         }
 
-        builder.setNegativeButton("No"){ dialog, _ ->
+        builder.setNegativeButton("Hayır"){ dialog, _ ->
             dialog.dismiss()
         }
 

@@ -170,24 +170,13 @@ class TaiChiParkinson : AppCompatActivity() {
 
 
         }
-        /*val filename = "ParkinsonHastaligi_nedir.txt"
-        val file = File(getFilesDir(), filename)
-        val br = BufferedReader(FileReader(file))
-        val text = StringBuilder()
 
-        var line: String? = null
-        while ({ line = br.readLine(); line }() != null) {
-            text.append(line)
-            text.append('\n')
-        }
+    override fun onBackPressed() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 
-        br.close()
-        val fileContents = text.toString()
-        Log.d("MARS",fileContents)
-
-        val scrollView = findViewById<ScrollView>(R.id.scrollView)
-        val textView = findViewById<TextView>(R.id.ParkinsonInfo)
-        textView.text = fileContents*/
 
 
 

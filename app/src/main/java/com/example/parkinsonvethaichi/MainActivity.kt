@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 val intent= Intent(this@MainActivity,HomeActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
                 startActivity(intent)
             }
         }

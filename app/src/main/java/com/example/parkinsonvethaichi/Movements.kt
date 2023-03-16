@@ -1,5 +1,6 @@
 package com.example.parkinsonvethaichi
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
@@ -9,5 +10,10 @@ class Movements : AppCompatActivity() {
         setContentView(R.layout.activity_movements)
         var actionBar=supportActionBar
         actionBar?.title="Tai Chi Hareketleri"
+    }
+    override fun onBackPressed() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
