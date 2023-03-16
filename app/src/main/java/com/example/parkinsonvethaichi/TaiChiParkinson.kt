@@ -171,11 +171,7 @@ class TaiChiParkinson : AppCompatActivity() {
 
         }
 
-    override fun onBackPressed() {
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
+
 
 
 

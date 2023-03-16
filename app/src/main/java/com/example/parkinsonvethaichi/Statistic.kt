@@ -11,9 +11,5 @@ class Statistic : AppCompatActivity() {
         var actionBar=supportActionBar
         actionBar?.title="Günlük İstatistikler"
     }
-    override fun onBackPressed() {
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
+
 }

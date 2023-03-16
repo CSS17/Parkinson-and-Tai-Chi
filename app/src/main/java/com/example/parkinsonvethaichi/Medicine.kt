@@ -49,11 +49,6 @@ class Medicine : AppCompatActivity() {
         }
 
     }
-    override fun onBackPressed() {
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
 
     fun hourselect(){
         val hourarrayAdapter= ArrayAdapter<String>(this,R.layout.spinner_item,hours)

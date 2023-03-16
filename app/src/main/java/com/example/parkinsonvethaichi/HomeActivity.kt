@@ -15,10 +15,7 @@ class HomeActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
     }
-    override fun onBackPressed() {
-        finish()
-        finishAffinity()
-    }
+
 
     fun Movements(view: View) {
         intent = Intent(applicationContext, MovementPassAnimation::class.java)
