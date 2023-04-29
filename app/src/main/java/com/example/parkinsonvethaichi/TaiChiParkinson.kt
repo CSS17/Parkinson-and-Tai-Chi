@@ -1,179 +1,87 @@
 package com.example.parkinsonvethaichi
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
-import android.media.effect.Effect
-import androidx.appcompat.app.AppCompatActivity
+import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
+import android.view.MenuItem
 import android.view.View
-import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_tai_chi_parkinson.*
 import java.io.*
 
 
 class TaiChiParkinson : AppCompatActivity() {
 
-    @SuppressLint("MissingInflatedId")
+
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tai_chi_parkinson)
-        var actionBar = supportActionBar
-        actionBar?.title = "Tai Chi ve Parkinson"
-
-        var parkinsoncount=0
-        var parkinsonreasonscount=0
-        var symptomscount=0
-        var effectscount=0
-        var treatmentcount=0
-        var taichicount=0
-        var taichieffectcount=0
-
-
-        val ParkinsonInfo= findViewById<TextView>(R.id.ParkinsonInfo)
-        val ParkinsonReasonsInfo = findViewById<TextView>(R.id.ParkinsonReasonsInfo)
-        val SymptomsInfo = findViewById<TextView>(R.id.SymptomsInfo)
-        val EffectsInfo= findViewById<TextView>(R.id.EffectsInfo)
-        val TreatmentInfo=findViewById<TextView>(R.id.TreatmentInfo)
-        val TaiChiInfo=findViewById<TextView>(R.id.TaiChiInfo)
-        val TaiChiEffectInfo=findViewById<TextView>(R.id.TaiChiEffectInfo)
-
-
-
-
-        val ParkinsonTitle = findViewById<TextView>(R.id.ParkinsonTitle)
-
+        // Metin butonuna tıklanınca
         ParkinsonTitle.setOnClickListener {
-            // Handle the click event here
-
-            if(parkinsoncount%2==0){
-                ParkinsonInfo.visibility=View.VISIBLE
-                ParkinsonTitle.setBackgroundColor(255)
-                parkinsoncount+=1
-            }
-            else{
-                ParkinsonTitle.setBackgroundResource(R.drawable.frame)
-                ParkinsonInfo.visibility=View.GONE
-                parkinsoncount+=1
-            }
-
-
-        }
-
-        val ParkisonReasonsTitle= findViewById<TextView>(R.id.ParkinsonReasonsTitle)
-
-        ParkisonReasonsTitle.setOnClickListener {
-
-            if (parkinsonreasonscount % 2 == 0) {
-                ParkisonReasonsTitle.setBackgroundColor(255)
-                ParkinsonReasonsInfo.visibility = View.VISIBLE
-                parkinsonreasonscount += 1
+            // Metin butonu tıklandığında görünürlük özelliğini değiştireceğiz.
+            // Eğer görünürse gizleyeceğiz, gizliyse görünür yapacağız.
+            if (ParkinsonInfo.visibility == View.VISIBLE) {
+                ParkinsonInfo.visibility = View.GONE
             } else {
-                ParkisonReasonsTitle.setBackgroundResource(R.drawable.frame)
-                ParkinsonReasonsInfo.visibility = View.GONE
-                parkinsonreasonscount += 1
-
-
+                ParkinsonInfo.visibility = View.VISIBLE
             }
         }
-            val SymptomsTitle = findViewById<TextView>(R.id.SymptomsTitle)
-            SymptomsTitle.setOnClickListener {
 
-                if (symptomscount % 2 == 0) {
-                    SymptomsTitle.setBackgroundColor(255)
-                    SymptomsInfo.visibility = View.VISIBLE
-                    symptomscount += 1
-                } else {
-                    SymptomsTitle.setBackgroundResource(R.drawable.frame)
-                    SymptomsInfo.visibility = View.GONE
-                    symptomscount += 1
-
-
-                }
-
+         ParkinsonReasonsTitle.setOnClickListener {
+             // Metin butonu tıklandığında görünürlük özelliğini değiştireceğiz.
+             // Eğer görünürse gizleyeceğiz, gizliyse görünür yapacağız.
+             if (ParkinsonReasonsInfo.visibility == View.VISIBLE) {
+                 ParkinsonReasonsInfo.visibility = View.GONE
+             } else {
+                 ParkinsonReasonsInfo.visibility = View.VISIBLE
+             }
+         }
+        SymptomsTitle.setOnClickListener {
+            if (SymptomsInfo.visibility == View.VISIBLE) {
+                SymptomsInfo.visibility = View.GONE
+            } else {
+                SymptomsInfo.visibility = View.VISIBLE
             }
 
-        val EffectsTitle = findViewById<TextView>(R.id.EffectsTitle)
+        }
 
         EffectsTitle.setOnClickListener {
-
-            if (effectscount % 2 == 0) {
-                EffectsTitle.setBackgroundColor(255)
-                EffectsInfo.visibility = View.VISIBLE
-                effectscount += 1
-            } else {
-                EffectsTitle.setBackgroundResource(R.drawable.frame)
+            if (EffectsInfo.visibility == View.VISIBLE) {
                 EffectsInfo.visibility = View.GONE
-                effectscount += 1
-
-
+            } else {
+                EffectsInfo.visibility = View.VISIBLE
             }
 
         }
-
-        val TreatmentTitle = findViewById<TextView>(R.id.TreatmentTitle)
-
         TreatmentTitle.setOnClickListener {
-
-            if (treatmentcount % 2 == 0) {
-                TreatmentTitle.setBackgroundColor(255)
-                TreatmentInfo.visibility = View.VISIBLE
-                treatmentcount += 1
-            } else {
-                TreatmentTitle.setBackgroundResource(R.drawable.frame)
+            if (TreatmentInfo.visibility == View.VISIBLE) {
                 TreatmentInfo.visibility = View.GONE
-                treatmentcount += 1
-
-
-            }
-
-        }
-
-        val TaiChiTitle = findViewById<TextView>(R.id.TaiChiTitle)
-
-        TaiChiTitle.setOnClickListener {
-
-            if (taichicount % 2 == 0) {
-                TaiChiTitle.setBackgroundColor(255)
-                TaiChiInfo.visibility = View.VISIBLE
-                taichicount += 1
             } else {
-                TaiChiTitle.setBackgroundResource(R.drawable.frame)
-                TaiChiInfo.visibility = View.GONE
-                taichicount += 1
-
-
+                TreatmentInfo.visibility = View.VISIBLE
             }
-
         }
-
-        val TaiChiEffectTitle = findViewById<TextView>(R.id.TaiChiEffectTitle)
+        TaiChiTitle.setOnClickListener {
+            if (TaiChiInfo.visibility == View.VISIBLE) {
+                TaiChiInfo.visibility = View.GONE
+            } else {
+                TaiChiInfo.visibility = View.VISIBLE
+            }
+        }
 
         TaiChiEffectTitle.setOnClickListener {
-
-            if (taichieffectcount % 2 == 0) {
-                TaiChiEffectTitle.setBackgroundColor(255)
-                TaiChiEffectInfo.visibility = View.VISIBLE
-                taichieffectcount += 1
-            } else {
-                TaiChiEffectTitle.setBackgroundResource(R.drawable.frame)
+            if (TaiChiEffectInfo.visibility == View.VISIBLE) {
                 TaiChiEffectInfo.visibility = View.GONE
-                taichieffectcount += 1
-
-
+            } else {
+                TaiChiEffectInfo.visibility = View.VISIBLE
             }
-
         }
 
-
-
-        }
-
-
-
-
-
+    }
 
     }
