@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    //add this to your app gradle
     id 'kotlin-android-extensions'
 }
 

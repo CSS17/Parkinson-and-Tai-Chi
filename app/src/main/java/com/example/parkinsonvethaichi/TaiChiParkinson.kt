@@ -103,15 +103,15 @@ class TaiChiParkinson : AppCompatActivity() {
         }
 
 
-         ParkinsonReasonsTitle.setOnClickListener {
-             // Metin butonu tıklandığında görünürlük özelliğini değiştireceğiz.
-             // Eğer görünürse gizleyeceğiz, gizliyse görünür yapacağız.
-             if (ParkinsonReasonsInfo.visibility == View.VISIBLE) {
-                 ParkinsonReasonsInfo.visibility = View.GONE
-             } else {
-                 ParkinsonReasonsInfo.visibility = View.VISIBLE
-             }
-         }
+        ParkinsonReasonsTitle.setOnClickListener {
+            // Metin butonu tıklandığında görünürlük özelliğini değiştireceğiz.
+            // Eğer görünürse gizleyeceğiz, gizliyse görünür yapacağız.
+            if (ParkinsonReasonsInfo.visibility == View.VISIBLE) {
+                ParkinsonReasonsInfo.visibility = View.GONE
+            } else {
+                ParkinsonReasonsInfo.visibility = View.VISIBLE
+            }
+        }
         SymptomsTitle.setOnClickListener {
             if (SymptomsInfo.visibility == View.VISIBLE) {
                 SymptomsInfo.visibility = View.GONE
@@ -164,4 +164,4 @@ class TaiChiParkinson : AppCompatActivity() {
         super.onDestroy()
     }
 
-    }
+}
