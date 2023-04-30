@@ -24,8 +24,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.065"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MedicineName"
-        app:layout_constraintVertical_bias="0.135" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.278" />
 
     <Spinner
         android:id="@+id/dakikasec"
@@ -33,10 +33,10 @@
         android:layout_height="73dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.836"
+        app:layout_constraintHorizontal_bias="0.829"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MedicineName"
-        app:layout_constraintVertical_bias="0.252" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.382" />
 
     <TextView
         android:id="@+id/Dakika"
@@ -52,8 +52,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.883"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MedicineName"
-        app:layout_constraintVertical_bias="0.137" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.277" />
 
     <Spinner
         android:id="@+id/saatsec"
@@ -61,10 +61,10 @@
         android:layout_height="73dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.166"
+        app:layout_constraintHorizontal_bias="0.149"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MedicineName"
-        app:layout_constraintVertical_bias="0.252" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.381" />
 
     <EditText
         android:id="@+id/MedicineName"
@@ -75,6 +75,7 @@
         android:paddingBottom="2dp"
         android:fontFamily="casual"
         android:onClick="write_medicine"
+        android:maxLength="13"
         android:hint="İlaç ismi giriniz"
         android:inputType="textPersonName"
         android:textAlignment="center"
@@ -100,7 +101,7 @@
         android:textColor="#FF0000"
         android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.477"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/MedicineName" />
 
@@ -119,10 +120,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MedicineName"
 
-        app:layout_constraintVertical_bias="0.488"
+        app:layout_constraintTop_toBottomOf="@+id/MedicineName"
+        app:layout_constraintVertical_bias="0.431"
         tools:ignore="UsingOnClickInXml" />
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="409dp"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            android:layout_marginTop="450dp"
+
+            />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

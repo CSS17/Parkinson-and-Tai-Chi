@@ -16,6 +16,7 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
+
     fun Movements(view: View) {
         intent = Intent(applicationContext, MovementPassAnimation::class.java)
         startActivity(intent)

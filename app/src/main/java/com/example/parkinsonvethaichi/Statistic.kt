@@ -1,5 +1,6 @@
 package com.example.parkinsonvethaichi
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
@@ -10,4 +11,5 @@ class Statistic : AppCompatActivity() {
         var actionBar=supportActionBar
         actionBar?.title="Günlük İstatistikler"
     }
+
 }
