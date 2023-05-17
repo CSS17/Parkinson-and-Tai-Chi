@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
+import android.view.ViewGroup
 import android.widget.MediaController
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
@@ -33,14 +34,31 @@ class Movements : AppCompatActivity() {
         setSeekBackIncrementMs(5000).
         setSeekForwardIncrementMs(5000).build()
 
+        val myView: View = findViewById(R.id.player)
+
+
         fullscreen.setOnClickListener {
 
             if (!isFullScreen){
                 fullscreen.setImageDrawable(ContextCompat.getDrawable(applicationContext,R.drawable.fullscreen_exit))
+                supportActionBar?.hide()
+                val layoutParams = myView.layoutParams
+                layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT // Genişliği "match_parent" olarak ayarlar
+                layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT // Yüksekliği "match_parent" olarak ayarlar
+                myView.layoutParams = layoutParams
+                myView.requestLayout()
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
             }
             else{
                 fullscreen.setImageDrawable(ContextCompat.getDrawable(applicationContext,R.drawable.fullscreen_active))
+                val density = resources.displayMetrics.density
+                val heightInDp = 300
+
+                val heightInPixels = (heightInDp * density + 0.5f).toInt()
+                val layoutParams = myView.layoutParams
+                layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT// Genişlik değerini günceller
+                myView.layoutParams.height = heightInPixels // Yükseklik değerini günceller
+                myView.requestLayout()
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             }
 
@@ -70,7 +88,7 @@ class Movements : AppCompatActivity() {
             val mediaItem=MediaItem.fromUri(videoUri)
             simpleExoplayer.setMediaItem(mediaItem)
             simpleExoplayer.prepare()
-            simpleExoplayer.play()
+            //simpleExoplayer.play()
 
             //videoView.setVideoURI(videoUri)
             //videoView.start()
