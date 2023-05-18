@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/recyclerText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:fontFamily="casual"
+        android:text="uuuuuu"
+        android:ems="10"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/edit_text_background"
+        android:textColor="@color/black"
+        android:drawableStart="@drawable/yingyang"
+        android:paddingStart="5dp"
+        android:drawablePadding="-5dp"
+        android:textAlignment="center"
+
+
+        android:textSize="40dp">
+
+
+    </TextView>
+    
+</LinearLayout>
