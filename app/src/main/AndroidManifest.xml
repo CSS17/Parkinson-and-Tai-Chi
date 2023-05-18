@@ -18,7 +18,12 @@
         tools:targetApi="31">
         <activity
             android:name=".MovementsVideo"
-            android:exported="false" />
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false"
+            android:noHistory="true"
+            android:parentActivityName=".Movements"
+            android:theme="@style/Theme.AppCompat.Light.NoAction.FullScreen"
+            />
         <activity
             android:name=".Statistic"
             android:exported="false"
@@ -78,6 +83,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity
             android:name=".MovementPassAnimation"
             android:exported="false">

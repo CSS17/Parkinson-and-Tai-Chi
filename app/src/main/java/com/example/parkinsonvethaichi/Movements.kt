@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -30,6 +31,7 @@ class Movements : AppCompatActivity() {
     private lateinit var MovementsAdapter : MovementsAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var MovementArrayList : ArrayList<MovementsModel>
+    private lateinit var simpleExoplayer: ExoPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,23 +42,24 @@ class Movements : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         MovementArrayList = ArrayList<MovementsModel>()
 
+
         for (i in 1..24) {
             val movement = MovementsModel(i.toString() + "."+" Hareket")
             MovementArrayList.add(movement)
         }
         Log.d("Saturn",MovementArrayList.get(10).Movements_name)
-        MovementsAdapter = MovementsAdapter(MovementArrayList)
-        recyclerView.adapter = MovementsAdapter
+
+
         Log.d("Saaaaturn",MovementArrayList.get(10).Movements_name)
 
         val storageRef = Firebase.storage.reference
-        val videoRef = storageRef.child("videos/video.mp4")
-        val simpleExoplayer=SimpleExoPlayer.Builder(this).
+        val videoRef = storageRef.child("videos/video1.mp4")
+        simpleExoplayer=SimpleExoPlayer.Builder(this).
         setSeekBackIncrementMs(5000).
         setSeekForwardIncrementMs(5000).build()
         val myView: View = findViewById(R.id.player)
-
-
+        MovementsAdapter = MovementsAdapter(MovementArrayList,simpleExoplayer)
+        recyclerView.adapter = MovementsAdapter
         fullscreen.setOnClickListener {
 
             if (!isFullScreen){
@@ -132,6 +135,8 @@ class Movements : AppCompatActivity() {
     override fun onBackPressed() {
         val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
+        simpleExoplayer?.stop()
+        simpleExoplayer?.release()
         finish()
     }
 }
