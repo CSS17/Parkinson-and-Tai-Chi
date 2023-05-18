@@ -47,7 +47,7 @@ class Movements : AppCompatActivity() {
         Log.d("Saturn",MovementArrayList.get(10).Movements_name)
         MovementsAdapter = MovementsAdapter(MovementArrayList)
         recyclerView.adapter = MovementsAdapter
-
+        Log.d("Saaaaturn",MovementArrayList.get(10).Movements_name)
 
         val storageRef = Firebase.storage.reference
         val videoRef = storageRef.child("videos/video.mp4")
