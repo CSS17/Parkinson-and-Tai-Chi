@@ -4,18 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:orientation="vertical"
+
     >
 
 
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/player"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        app:use_controller="true"
-        app:player_layout_id="@layout/exo_player_view"
+
+        android:layout_height="250dp"
+        android:layout_margin="10dp"
         app:controller_layout_id="@layout/custom_controller"
-        >
+
+        app:player_layout_id="@layout/exo_player_view"
+
+        app:resize_mode="fill"
+        app:use_controller="true">
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -24,9 +30,38 @@
             android:layout_gravity="center"></ProgressBar>
     </com.google.android.exoplayer2.ui.PlayerView>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:text="Tüm Hareketler"
+        android:textSize="40dp"
+        android:textAlignment="center"
+        android:textStyle="italic|bold"
+        android:textColor="@color/black"
+        >
+
+    </TextView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+
+            <androidx.recyclerview.widget.RecyclerView
+
+                android:id="@+id/MovementList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+
+                ></androidx.recyclerview.widget.RecyclerView>
+
+
+        </RelativeLayout>
+
 
 
 </LinearLayout>

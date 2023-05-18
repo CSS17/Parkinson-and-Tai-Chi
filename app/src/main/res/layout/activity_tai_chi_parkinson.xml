@@ -20,7 +20,7 @@
 
       <TextView
           android:layout_width="206dp"
-          android:layout_height="73dp"
+          android:layout_height="58dp"
           android:text="Parkinson Hastalığı Nedir?"
           android:textAlignment="center"
           android:textColor="#F10B0B"
@@ -32,7 +32,6 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:backgroundTint="@color/teal_200"
-          android:onClick="voiceClick"
           android:src="@drawable/volume_base" />
 
       <ToggleButton
@@ -40,7 +39,6 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textOff="Göster"
-          android:textAllCaps="false"
           android:textOn="Gizle" />
 
     </LinearLayout>
@@ -74,7 +72,7 @@
 
       <TextView
           android:layout_width="206dp"
-          android:layout_height="73dp"
+          android:layout_height="58dp"
           android:text="Parkinson Hastalığının Nedenleri Nelerdir?"
           android:textAlignment="center"
           android:textColor="#F10B0B"
@@ -86,15 +84,12 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:backgroundTint="@color/teal_200"
-          android:src="@drawable/volume_base"
-
-          />
+          android:src="@drawable/volume_base" />
 
       <ToggleButton
           android:id="@+id/ParkinsonReasonsTitle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textAllCaps="false"
           android:textOff="Göster"
           android:textOn="Gizle" />
 
@@ -130,7 +125,7 @@
 
       <TextView
           android:layout_width="206dp"
-          android:layout_height="73dp"
+          android:layout_height="58dp"
           android:text="Parkinson Hastalığının Belirtileri Nelerdir?"
           android:textAlignment="center"
           android:textColor="#F10B0B"
@@ -142,15 +137,13 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:backgroundTint="@color/teal_200"
-          android:src="@drawable/volume_base"
-          />
+          android:src="@drawable/volume_base" />
 
       <ToggleButton
           android:id="@+id/SymptomsTitle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textOff="Göster"
-          android:textAllCaps="false"
           android:textOn="Gizle" />
 
     </LinearLayout>
@@ -186,7 +179,7 @@ Klasik bulguları (tremor) titreme, (rijidite) katılık, (bradikinezi) hareketl
 
       <TextView
           android:layout_width="206dp"
-          android:layout_height="73dp"
+          android:layout_height="58dp"
           android:text="Parkinson Hastalığının Etkileri Nelerdir?"
           android:textAlignment="center"
           android:textColor="#F10B0B"
@@ -205,7 +198,6 @@ Klasik bulguları (tremor) titreme, (rijidite) katılık, (bradikinezi) hareketl
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textOff="Göster"
-          android:textAllCaps="false"
           android:textOn="Gizle" />
 
     </LinearLayout>
@@ -245,7 +237,7 @@ El Yazısının bozulup küçülmesi; Ani gelişen el yazısındaki kötüleşme
 
       <TextView
           android:layout_width="206dp"
-          android:layout_height="73dp"
+          android:layout_height="58dp"
           android:text="Parkinson Hastalığının Tedavisi Nedir?"
           android:textAlignment="center"
           android:textColor="#F10B0B"
@@ -263,7 +255,6 @@ El Yazısının bozulup küçülmesi; Ani gelişen el yazısındaki kötüleşme
           android:id="@+id/TreatmentTitle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textAllCaps="false"
           android:textOff="Göster"
           android:textOn="Gizle" />
 
@@ -311,7 +302,7 @@ Egzersiz sayesinde yürüyüş, denge ve duruş düzelebiliyor. Ayrıca hastalı
 
       <TextView
           android:layout_width="206dp"
-          android:layout_height="73dp"
+          android:layout_height="58dp"
           android:text="Tai Chi Nedir?"
           android:textAlignment="center"
           android:textColor="#F10B0B"
@@ -329,7 +320,6 @@ Egzersiz sayesinde yürüyüş, denge ve duruş düzelebiliyor. Ayrıca hastalı
           android:id="@+id/TaiChiTitle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textAllCaps="false"
           android:textOff="Göster"
           android:textOn="Gizle" />
 
@@ -365,8 +355,9 @@ Egzersiz sayesinde yürüyüş, denge ve duruş düzelebiliyor. Ayrıca hastalı
         android:padding="16dp">
 
       <TextView
+          android:layout_marginTop="-15dp"
           android:layout_width="206dp"
-          android:layout_height="73dp"
+          android:layout_height="80dp"
           android:text="Tai Chi Egzersizlerinin Parkinson Hastalığına Etkileri Nelerdir?"
           android:textAlignment="center"
           android:textColor="#F10B0B"
@@ -384,7 +375,6 @@ Egzersiz sayesinde yürüyüş, denge ve duruş düzelebiliyor. Ayrıca hastalı
           android:id="@+id/TaiChiEffectTitle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textAllCaps="false"
           android:textOff="Göster"
           android:textOn="Gizle" />
 
