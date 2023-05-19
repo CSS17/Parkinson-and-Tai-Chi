@@ -133,10 +133,30 @@ class Movements : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
-        simpleExoplayer?.stop()
-        simpleExoplayer?.release()
-        finish()
+        if (!isFullScreen){
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            simpleExoplayer?.stop()
+            simpleExoplayer?.release()
+            finish()
+        }
+        else{
+            fullscreen.setImageDrawable(ContextCompat.getDrawable(applicationContext,R.drawable.fullscreen_active))
+            val density = resources.displayMetrics.density
+            val heightInDp = 300
+            val marginInDp = 10
+            val marginPixels = (marginInDp * density + 0.5f).toInt()
+            val heightInPixels = (heightInDp * density + 0.5f).toInt()
+            val layoutParams = player.layoutParams as LinearLayout.LayoutParams
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT// Genişlik değerini günceller
+            player.layoutParams.height = heightInPixels // Yükseklik değerini günceller
+            layoutParams.setMargins(marginPixels,marginPixels,marginPixels,marginPixels)
+            player.requestLayout()
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+            isFullScreen=!isFullScreen
+        }
+
+
+
     }
 }

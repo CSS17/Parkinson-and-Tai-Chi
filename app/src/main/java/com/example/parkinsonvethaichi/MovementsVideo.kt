@@ -17,6 +17,7 @@ import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.android.synthetic.main.activity_movements.*
 import kotlinx.android.synthetic.main.activity_movements_video.button2
 import kotlinx.android.synthetic.main.activity_movements_video.button3
 import kotlinx.android.synthetic.main.activity_movements_video.movementtitle
@@ -175,10 +176,28 @@ class MovementsVideo : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        exoPlayer?.stop()
-        exoPlayer?.release()
-        val intent = Intent(this, Movements::class.java)
-        startActivity(intent)
-        finish()
+        if(!isFullScreen){
+            exoPlayer?.stop()
+            exoPlayer?.release()
+            val intent = Intent(this, Movements::class.java)
+            startActivity(intent)
+            finish()
+        }
+        else{
+            fullscreen.setImageDrawable(ContextCompat.getDrawable(applicationContext,R.drawable.fullscreen_active))
+            val density = resources.displayMetrics.density
+            val heightInDp = 300
+            val marginInDp = 10
+            val marginPixels = (marginInDp * density + 0.5f).toInt()
+            val heightInPixels = (heightInDp * density + 0.5f).toInt()
+            val layoutParams = player2.layoutParams as LinearLayout.LayoutParams
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT// Genişlik değerini günceller
+            player2.layoutParams.height = heightInPixels // Yükseklik değerini günceller
+            layoutParams.setMargins(marginPixels,marginPixels,marginPixels,marginPixels)
+            player2.requestLayout()
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
+            isFullScreen=!isFullScreen
+        }
+
     }
 }
