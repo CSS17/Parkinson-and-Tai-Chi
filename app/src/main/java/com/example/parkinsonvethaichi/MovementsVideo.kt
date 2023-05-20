@@ -24,13 +24,17 @@ import kotlinx.android.synthetic.main.activity_movements_video.movementtitle
 
 import kotlinx.android.synthetic.main.activity_movements_video.player2
 import kotlinx.android.synthetic.main.activity_movements_video.progress_bar2
-import kotlinx.android.synthetic.main.custom_controller.fullscreen
+import kotlinx.android.synthetic.main.custom_controller.*
+import java.util.*
+import kotlin.concurrent.timer
 
 class MovementsVideo : AppCompatActivity() {
 
     var isFullScreen=false
     private lateinit var exoPlayer: ExoPlayer
-
+    private var time:Long=0
+    private var milis:Long=0
+    private var timer = Timer()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movements_video)
@@ -39,18 +43,20 @@ class MovementsVideo : AppCompatActivity() {
         val storageRef = Firebase.storage.reference
         val videoList = intent.getStringArrayListExtra("arrayListKey")
         var num_video = intent.getIntExtra("intKey", 0)
+        time= intent.getLongExtra("time",0)
+        milis=intent.getLongExtra("milis",0)
         Log.d("SATURN",num_video.toString())
         var videoRef = storageRef.child("videos/video"+num_video+".mp4")
         exoPlayer= SimpleExoPlayer.Builder(this).
         setSeekBackIncrementMs(5000).
         setSeekForwardIncrementMs(5000).build()
         val myView: View = findViewById(R.id.player2)
-
         movementtitle.text=videoList?.get(num_video-1)
-
+        Log.d("ALİHAN DERTLİ",time.toString())
         button2.setOnClickListener(){
 
             if(num_video-1 !=0){
+                timer.cancel()
                 num_video=num_video-1
                 movementtitle.text=videoList?.get(num_video-1)
                 videoRef = storageRef.child("videos/video"+num_video+".mp4")
@@ -61,7 +67,7 @@ class MovementsVideo : AppCompatActivity() {
                     val mediaItem= MediaItem.fromUri(videoUri)
                     exoPlayer.setMediaItem(mediaItem)
 
-                    exoPlayer.stop()
+                    exoPlayer.playWhenReady = false
                     exoPlayer.prepare()
                     //simpleExoplayer.play()
 
@@ -75,6 +81,7 @@ class MovementsVideo : AppCompatActivity() {
 
         button3.setOnClickListener(){
             if(num_video+1 !=25){
+                timer.cancel()
                 num_video=num_video+1
                 movementtitle.text=videoList?.get(num_video-1)
                 videoRef = storageRef.child("videos/video"+num_video+".mp4")
@@ -85,7 +92,7 @@ class MovementsVideo : AppCompatActivity() {
                     val mediaItem= MediaItem.fromUri(videoUri)
                     exoPlayer.setMediaItem(mediaItem)
 
-                    exoPlayer.stop()
+                    exoPlayer.playWhenReady = false
                     exoPlayer.prepare()
                     //simpleExoplayer.play()
 
@@ -142,9 +149,28 @@ class MovementsVideo : AppCompatActivity() {
                 else if(playbackState== Player.STATE_READY){
                     progress_bar2.visibility= View.GONE
                 }
+                else if (playbackState == Player.STATE_ENDED) {
+                    timer.cancel()
+                    exoPlayer.playWhenReady = false
+                    exoPlayer.seekTo(0)
+                }
             }
 
         })
+
+        exo_play.setOnClickListener {
+            exoPlayer.playWhenReady = true
+            timer = timer(period = 100) {
+                milis += 100
+                time = milis / 1000
+                Log.d("ALİHAN", "Geçen süre: $time saniye")
+            }
+        }
+
+        exo_pause.setOnClickListener {
+            exoPlayer.playWhenReady = false
+            timer?.cancel()
+        }
 
         videoRef.downloadUrl.addOnSuccessListener { uri ->
             val videoUrl = uri.toString()
@@ -165,21 +191,15 @@ class MovementsVideo : AppCompatActivity() {
 
 
 
-
-
-
-
-
-
-
-
-
-
     override fun onBackPressed() {
         if(!isFullScreen){
+            timer.cancel()
             exoPlayer?.stop()
             exoPlayer?.release()
             val intent = Intent(this, Movements::class.java)
+            Log.d("GONYA",time.toString())
+            intent.putExtra("time",time)
+            intent.putExtra("milis",milis)
             startActivity(intent)
             finish()
         }

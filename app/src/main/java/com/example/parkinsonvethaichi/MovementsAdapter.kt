@@ -2,17 +2,30 @@ package com.example.parkinsonvethaichi
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Looper
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.parkinsonvethaichi.databinding.MovementRecyclerRowBinding
 import com.google.android.exoplayer2.ExoPlayer
+import java.util.Timer
+import java.util.logging.Handler
 
-class MovementsAdapter(private val MovementList: ArrayList<MovementsModel>, private val exoPlayer: ExoPlayer) : RecyclerView.Adapter<MovementsAdapter.MovementHolder>(){
-
+class MovementsAdapter(private val MovementList: ArrayList<MovementsModel>, private val exoPlayer: ExoPlayer,private var elapsedSeconds:Long,private var elapsedTimeInMillis:Long,private var timer:Timer) : RecyclerView.Adapter<MovementsAdapter.MovementHolder>(){
+    private val handler = android.os.Handler(Looper.getMainLooper())
     val arrayList = ArrayList<String>() // Gönderilecek ArrayList
 
-
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        init {
+            // Öğenin tıklanma olayını dinleyin
+            itemView.setOnClickListener {
+                // Tıklama işlemini gerçekleştirin
+                val position = adapterPosition
+                // İlgili işlemleri yapmak için position'ı kullanın
+            }
+        }
+    }
 
     class MovementHolder(val binding : MovementRecyclerRowBinding) : RecyclerView.ViewHolder(binding.root){
 
@@ -20,6 +33,7 @@ class MovementsAdapter(private val MovementList: ArrayList<MovementsModel>, priv
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovementHolder {
         val binding = MovementRecyclerRowBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+
         return MovementHolder(binding)
     }
 
@@ -56,18 +70,25 @@ class MovementsAdapter(private val MovementList: ArrayList<MovementsModel>, priv
         arrayList.add("Hareket 24")
 
         holder.binding.recyclerText.text = MovementList.get(position).Movements_name
-        holder.itemView.setOnClickListener{
-
-            // Diğer sayfaya geçiş işlemini gerçekleştir
-
-            exoPlayer?.stop()
-            exoPlayer?.release()
-            val intent = Intent(holder.itemView.context,MovementsVideo::class.java)
+        holder.itemView.setOnClickListener {
+            exoPlayer.playWhenReady = false
+            val position = holder.adapterPosition
+            val intent = Intent(holder.itemView.context, MovementsVideo::class.java)
             intent.putStringArrayListExtra("arrayListKey", arrayList)
-            intent.putExtra("intKey", position+1)
+            intent.putExtra("intKey", position + 1)
+            intent.putExtra("time", elapsedSeconds)
+            intent.putExtra("milis", elapsedTimeInMillis)
+            timer.cancel()
             holder.itemView.context.startActivity(intent)
 
-
+            (holder.itemView.context as Activity).finish()
+        }
+    }
+    fun updateElapsedTime(elapsedSeconds: Long,elapsedTimeInMillis:Long) {
+        handler.post {
+            this.elapsedSeconds = elapsedSeconds
+            this.elapsedTimeInMillis=elapsedTimeInMillis
+            notifyDataSetChanged()
         }
     }
 

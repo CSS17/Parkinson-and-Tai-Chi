@@ -18,8 +18,12 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,nu
         private const val MEDICINE_NAME="medicine_name"
         private const val TBL_MEDICINE="tbl_medicine"
         private const val ID= "id"
+        private const val ID2="id2"
         private const val MEDICINE_HOUR="medicine_hour"
         private const val MEDICINE_MINUTE="medicine_minute"
+        private const val TBL_STATS="tbl_stats"
+        private const val DAY_OF_WEEK="day_of_week"
+        private const val SPEND_TIME="spend_time"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -28,13 +32,27 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,nu
                 + MEDICINE_HOUR + " TEXT," + MEDICINE_MINUTE + " TEXT" + ")")
         db?.execSQL(createTblMedicine)
 
+        val createStatisticTable = ("CREATE TABLE "+ TBL_STATS + "("
+                + ID2+ " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + DAY_OF_WEEK+" TEXT,"
+                + SPEND_TIME+" INTEGER"
+                + ")")
+        db?.execSQL(createStatisticTable)
 
+        /*for (day in listOf("Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar")) {
+            val contentValues = ContentValues()
+            contentValues.put("day_of_week", day)
+            contentValues.put("spend_time", 0)
+            db?.insert(TBL_STATS, null, contentValues)
+        }*/
 
 
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
         db!!.execSQL("DROP TABLE IF EXISTS $TBL_MEDICINE")
+        onCreate(db)
+        db!!.execSQL("DROP TABLE IF EXISTS $TBL_STATS")
         onCreate(db)
     }
 
@@ -46,6 +64,16 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,nu
         contentValues.put(MEDICINE_MINUTE,mdc.medicine_minute)
 
         val success = db.insert(TBL_MEDICINE,null,contentValues)
+        db.close()
+        return success
+    }
+
+    fun instertTime(stats:StatisticsModel) : Long{
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+        contentValues.put(DAY_OF_WEEK,stats.day_of_week)
+        contentValues.put(SPEND_TIME,stats.spend_time)
+        val success = db.insert(TBL_STATS,null,contentValues)
         db.close()
         return success
     }
@@ -87,6 +115,42 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,nu
             } while(cursor.moveToNext())
         }
         return mdcList
+    }
+
+    @SuppressLint("Range")
+    fun getAllStats(): ArrayList<StatisticsModel> {
+        val dataList: ArrayList<StatisticsModel> = ArrayList()
+        val selectQuery = "SELECT * FROM $TBL_STATS"
+        val db = this.readableDatabase
+        val cursor: Cursor?
+
+        try {
+            cursor = db.rawQuery(selectQuery,null)
+
+        }catch (e:Exception){
+            e.printStackTrace()
+            db.execSQL(selectQuery)
+            return ArrayList()
+        }
+
+
+        var day_of_week: String
+        var spend_time: Int
+
+        if (cursor.moveToFirst()) {
+            do {
+                day_of_week = cursor.getString(cursor.getColumnIndex("day_of_week"))
+                spend_time = cursor.getInt(cursor.getColumnIndex("spend_time"))
+
+                val data = StatisticsModel(day_of_week=day_of_week, spend_time=spend_time)
+                dataList.add(data)
+            } while (cursor.moveToNext())
+        }
+
+        cursor.close()
+        db.close()
+
+        return dataList
     }
 
 

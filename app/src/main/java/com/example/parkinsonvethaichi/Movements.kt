@@ -1,5 +1,6 @@
 package com.example.parkinsonvethaichi
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.net.Uri
@@ -15,33 +16,50 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.*
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_movements.*
 import kotlinx.android.synthetic.main.custom_controller.*
+import java.time.Duration
+import java.util.Timer
+import kotlin.concurrent.timer
 import kotlin.math.log
 
 
 class Movements : AppCompatActivity() {
+    private lateinit var sqLiteHelper : SQLiteHelper
     var isFullScreen=false
     private lateinit var MovementsAdapter : MovementsAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var MovementArrayList : ArrayList<MovementsModel>
     private lateinit var simpleExoplayer: ExoPlayer
-
+    private var timer: Timer? = null
+    private var elapsedSeconds:Long=0
+    private var elapsedTimeInMillis: Long = 0
+    private var isVideoPlaying = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movements)
+        sqLiteHelper = SQLiteHelper(this)
+        //val stats = sqLiteHelper.getAllStats()
+        var timer = Timer()
+        var elapsedTimeInSeconds = 0
+        elapsedSeconds= intent.getLongExtra("time",0)
+        elapsedTimeInMillis=intent.getLongExtra("milis",0)
+        Log.d("ALİHAN","GELEN DEĞER:"+elapsedSeconds)
+        //Log.d("VENUSS",stats.get(0).day_of_week)
+
         var actionBar = supportActionBar
         actionBar?.title = "Tai Chi Movements"
         recyclerView = findViewById(R.id.MovementList)
         recyclerView.layoutManager = LinearLayoutManager(this)
         MovementArrayList = ArrayList<MovementsModel>()
 
+
+
+        // Timer'ı durdurmak için bir süre bekleyelim
+        timer.cancel()
 
         for (i in 1..24) {
             val movement = MovementsModel(i.toString() + "."+" Hareket")
@@ -58,7 +76,7 @@ class Movements : AppCompatActivity() {
         setSeekBackIncrementMs(5000).
         setSeekForwardIncrementMs(5000).build()
         val myView: View = findViewById(R.id.player)
-        MovementsAdapter = MovementsAdapter(MovementArrayList,simpleExoplayer)
+        MovementsAdapter = MovementsAdapter(MovementArrayList,simpleExoplayer,elapsedSeconds,elapsedTimeInMillis,timer)
         recyclerView.adapter = MovementsAdapter
         fullscreen.setOnClickListener {
 
@@ -95,17 +113,29 @@ class Movements : AppCompatActivity() {
 
         player.player=simpleExoplayer
         player.keepScreenOn=true
+
         simpleExoplayer.addListener(object: Player.Listener{
             override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
+
                 if(playbackState==Player.STATE_BUFFERING){
                     progress_bar.visibility=View.VISIBLE
+
                 }
                 else if(playbackState==Player.STATE_READY){
                     progress_bar.visibility=View.GONE
+
+                }
+                else if (playbackState == Player.STATE_ENDED) {
+                    timer.cancel()
+                    simpleExoplayer.playWhenReady = false
+                    simpleExoplayer.seekTo(0)
+
                 }
             }
 
         })
+
+
 
         videoRef.downloadUrl.addOnSuccessListener { uri ->
             val videoUrl = uri.toString()
@@ -121,6 +151,32 @@ class Movements : AppCompatActivity() {
             //videoView.start()
         }.addOnFailureListener { exception ->
             // Hata durumunda işlem yapın
+        }
+
+        recyclerView.setOnTouchListener { _, event ->
+            // Video oynatıcısı çalışıyorsa tıklama olayını engelle
+            if (isVideoPlaying) {
+                true
+            } else {
+                // Video oynatıcısı çalışmıyorsa tıklama olayını devam ettir
+                false
+            }
+        }
+
+        exo_play.setOnClickListener {
+            simpleExoplayer.playWhenReady = true
+            timer = timer(period = 100) {
+                elapsedTimeInMillis += 100
+                elapsedSeconds = elapsedTimeInMillis / 1000
+                Log.d("ALİHAN", "Geçen süre: $elapsedSeconds saniye")
+                MovementsAdapter.updateElapsedTime(elapsedSeconds,elapsedTimeInMillis)
+            }
+        }
+
+        exo_pause.setOnClickListener {
+            simpleExoplayer.playWhenReady = false
+            timer?.cancel()
+            MovementsAdapter.updateElapsedTime(elapsedSeconds,elapsedTimeInMillis)
         }
 
 
@@ -158,5 +214,12 @@ class Movements : AppCompatActivity() {
 
 
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }
