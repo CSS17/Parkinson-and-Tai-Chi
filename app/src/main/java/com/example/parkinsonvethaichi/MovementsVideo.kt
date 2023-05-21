@@ -52,7 +52,7 @@ class MovementsVideo : AppCompatActivity() {
         setSeekForwardIncrementMs(5000).build()
         val myView: View = findViewById(R.id.player2)
         movementtitle.text=videoList?.get(num_video-1)
-        Log.d("ALİHAN DERTLİ",time.toString())
+
         button2.setOnClickListener(){
 
             if(num_video-1 !=0){
@@ -163,7 +163,7 @@ class MovementsVideo : AppCompatActivity() {
             timer = timer(period = 100) {
                 milis += 100
                 time = milis / 1000
-                Log.d("ALİHAN", "Geçen süre: $time saniye")
+                Log.d("ALİHAN", "Geçen süre BUUUUUUUUUUUUUUU : $time saniye")
             }
         }
 

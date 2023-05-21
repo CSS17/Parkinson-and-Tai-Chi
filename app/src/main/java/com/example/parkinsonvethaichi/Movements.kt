@@ -43,11 +43,11 @@ class Movements : AppCompatActivity() {
         setContentView(R.layout.activity_movements)
         sqLiteHelper = SQLiteHelper(this)
         //val stats = sqLiteHelper.getAllStats()
-        var timer = Timer()
         var elapsedTimeInSeconds = 0
         elapsedSeconds= intent.getLongExtra("time",0)
         elapsedTimeInMillis=intent.getLongExtra("milis",0)
         Log.d("ALİHAN","GELEN DEĞER:"+elapsedSeconds)
+
         //Log.d("VENUSS",stats.get(0).day_of_week)
 
         var actionBar = supportActionBar
@@ -59,7 +59,7 @@ class Movements : AppCompatActivity() {
 
 
         // Timer'ı durdurmak için bir süre bekleyelim
-        timer.cancel()
+        timer?.cancel()
 
         for (i in 1..24) {
             val movement = MovementsModel(i.toString() + "."+" Hareket")
@@ -76,7 +76,7 @@ class Movements : AppCompatActivity() {
         setSeekBackIncrementMs(5000).
         setSeekForwardIncrementMs(5000).build()
         val myView: View = findViewById(R.id.player)
-        MovementsAdapter = MovementsAdapter(MovementArrayList,simpleExoplayer,elapsedSeconds,elapsedTimeInMillis,timer)
+        MovementsAdapter = MovementsAdapter(MovementArrayList,simpleExoplayer,elapsedSeconds,elapsedTimeInMillis,this)
         recyclerView.adapter = MovementsAdapter
         fullscreen.setOnClickListener {
 
@@ -119,14 +119,15 @@ class Movements : AppCompatActivity() {
 
                 if(playbackState==Player.STATE_BUFFERING){
                     progress_bar.visibility=View.VISIBLE
-
                 }
                 else if(playbackState==Player.STATE_READY){
                     progress_bar.visibility=View.GONE
 
+
+
                 }
                 else if (playbackState == Player.STATE_ENDED) {
-                    timer.cancel()
+                    timer?.cancel()
                     simpleExoplayer.playWhenReady = false
                     simpleExoplayer.seekTo(0)
 
@@ -153,40 +154,38 @@ class Movements : AppCompatActivity() {
             // Hata durumunda işlem yapın
         }
 
-        recyclerView.setOnTouchListener { _, event ->
-            // Video oynatıcısı çalışıyorsa tıklama olayını engelle
-            if (isVideoPlaying) {
-                true
-            } else {
-                // Video oynatıcısı çalışmıyorsa tıklama olayını devam ettir
-                false
-            }
-        }
+
 
         exo_play.setOnClickListener {
             simpleExoplayer.playWhenReady = true
             timer = timer(period = 100) {
                 elapsedTimeInMillis += 100
                 elapsedSeconds = elapsedTimeInMillis / 1000
-                Log.d("ALİHAN", "Geçen süre: $elapsedSeconds saniye")
                 MovementsAdapter.updateElapsedTime(elapsedSeconds,elapsedTimeInMillis)
+                Log.d("ALİHAN", "Geçen süre Çalışmaya devam: $elapsedSeconds saniye")
             }
+
+
         }
 
         exo_pause.setOnClickListener {
             simpleExoplayer.playWhenReady = false
             timer?.cancel()
             MovementsAdapter.updateElapsedTime(elapsedSeconds,elapsedTimeInMillis)
+
         }
 
 
 
 
-        MovementsAdapter.notifyDataSetChanged()
+
 
     }
 
-
+    fun stopTimer() {
+        timer?.cancel()
+        timer = null
+    }
 
     override fun onBackPressed() {
         if (!isFullScreen){
