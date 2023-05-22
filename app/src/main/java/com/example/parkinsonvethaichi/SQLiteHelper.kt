@@ -160,4 +160,9 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,nu
         db.close()
     }
 
+    fun resetStats(){
+        val db = this.writableDatabase
+        db.execSQL("UPDATE tbl_stats SET spend_time = 0");
+    }
+
 }
