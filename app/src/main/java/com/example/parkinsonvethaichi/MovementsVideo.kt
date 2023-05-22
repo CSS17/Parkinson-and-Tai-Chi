@@ -35,16 +35,26 @@ class MovementsVideo : AppCompatActivity() {
     private var time:Long=0
     private var milis:Long=0
     private var timer = Timer()
+    private var flag = false
+    private lateinit var fulltime:ArrayList<StatisticsModel>
+    private lateinit var sqLiteHelper : SQLiteHelper
+    val calendar = Calendar.getInstance()
+    val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movements_video)
         var actionBar = supportActionBar
         actionBar?.title = "Tai Chi Movements"
+        sqLiteHelper = SQLiteHelper(this)
+        fulltime=sqLiteHelper.getAllStats()
         val storageRef = Firebase.storage.reference
         val videoList = intent.getStringArrayListExtra("arrayListKey")
         var num_video = intent.getIntExtra("intKey", 0)
         time= intent.getLongExtra("time",0)
         milis=intent.getLongExtra("milis",0)
+        flag = intent.getBooleanExtra("flag",false)
+        Log.d("BEBEK",flag.toString())
         Log.d("SATURN",num_video.toString())
         var videoRef = storageRef.child("videos/video"+num_video+".mp4")
         exoPlayer= SimpleExoPlayer.Builder(this).
@@ -193,6 +203,7 @@ class MovementsVideo : AppCompatActivity() {
 
     override fun onBackPressed() {
         if(!isFullScreen){
+            flag=false
             timer.cancel()
             exoPlayer?.stop()
             exoPlayer?.release()
@@ -200,6 +211,7 @@ class MovementsVideo : AppCompatActivity() {
             Log.d("GONYA",time.toString())
             intent.putExtra("time",time)
             intent.putExtra("milis",milis)
+            intent.putExtra("flag",flag)
             startActivity(intent)
             finish()
         }
@@ -220,4 +232,61 @@ class MovementsVideo : AppCompatActivity() {
         }
 
     }
+
+    private fun addTime(day_name:String,day:Int){
+        var Time= time.toInt()+fulltime.get(day).spend_time
+        sqLiteHelper.instertTime(StatisticsModel(day_name,Time))
+    }
+
+
+    private fun getDay(){
+        when (dayOfWeek) {
+
+            Calendar.MONDAY -> {
+                println("Bugün Pazartesi")
+                addTime("Pazartesi",0)
+            }
+            Calendar.TUESDAY -> {
+                println("Bugün Salı")
+                addTime("Salı",1)
+            }
+            Calendar.WEDNESDAY -> {
+                println("Bugün Çarşamba")
+                addTime("Çarşamba",2)
+            }
+            Calendar.THURSDAY -> {
+                println("Bugün Perşembe")
+                addTime("Perşembe",3)
+            }
+            Calendar.FRIDAY -> {
+                println("Bugün Cuma")
+                addTime("Cuma",4)
+            }
+            Calendar.SATURDAY -> {
+                println("Bugün Cumartesi")
+                addTime("Cumartesi",5)
+            }
+            Calendar.SUNDAY -> {
+                println("Bugün Pazar")
+                addTime("Pazar",6)
+            }
+
+        }
+
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        exoPlayer.playWhenReady=false
+        if(flag){
+            getDay()
+        }
+        Log.d("TUŞ","ONPAUSE")
+    }
+
+
+
+
+
 }

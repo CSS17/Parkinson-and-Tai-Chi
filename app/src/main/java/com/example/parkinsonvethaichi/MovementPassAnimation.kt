@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.View
 
 class MovementPassAnimation : AppCompatActivity() {
@@ -11,6 +12,7 @@ class MovementPassAnimation : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movement_pass_animation)
         supportActionBar?.hide()
+        Log.d("TUŞ","ÇIKŞURDAN")
         val timer = object: CountDownTimer(3000, 1000) {
             override fun onTick(millisUntilFinished: Long) {}
 

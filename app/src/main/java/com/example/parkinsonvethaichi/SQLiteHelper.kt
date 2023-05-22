@@ -39,7 +39,7 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,nu
                 + ")")
         db?.execSQL(createStatisticTable)
 
-        /*for (day in listOf("Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar")) {
+       /* for (day in listOf("Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar")) {
             val contentValues = ContentValues()
             contentValues.put("day_of_week", day)
             contentValues.put("spend_time", 0)
@@ -62,20 +62,16 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,nu
         contentValues.put(MEDICINE_NAME,mdc.medicine_name)
         contentValues.put(MEDICINE_HOUR,mdc.medicine_hour)
         contentValues.put(MEDICINE_MINUTE,mdc.medicine_minute)
-
         val success = db.insert(TBL_MEDICINE,null,contentValues)
         db.close()
         return success
     }
 
-    fun instertTime(stats:StatisticsModel) : Long{
+    fun instertTime(stats:StatisticsModel){
         val db = this.writableDatabase
-        val contentValues = ContentValues()
-        contentValues.put(DAY_OF_WEEK,stats.day_of_week)
-        contentValues.put(SPEND_TIME,stats.spend_time)
-        val success = db.insert(TBL_STATS,null,contentValues)
+        db.execSQL("UPDATE $TBL_STATS SET $SPEND_TIME = ${stats.spend_time} WHERE $DAY_OF_WEEK = '${stats.day_of_week}'")
         db.close()
-        return success
+
     }
 
     @SuppressLint("Range")

@@ -36,7 +36,9 @@
         </activity>
         <activity
             android:name=".StatiscticPassAnimation"
-            android:exported="false">
+            android:exported="false"
+            android:noHistory="true"
+            >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -52,7 +54,9 @@
         </activity>
         <activity
             android:name=".MedicinePassAnimation"
-            android:exported="false">
+            android:exported="false"
+            android:noHistory="true"
+            >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -68,7 +72,9 @@
         </activity>
         <activity
             android:name=".TaiChiParkinsonPassAnimation"
-            android:exported="false">
+            android:exported="false"
+            android:noHistory="true"
+            >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -87,7 +93,9 @@
 
         <activity
             android:name=".MovementPassAnimation"
-            android:exported="false">
+            android:exported="false"
+            android:noHistory="true"
+            >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

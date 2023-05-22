@@ -3,10 +3,12 @@ package com.example.parkinsonvethaichi
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -22,7 +24,8 @@ import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_movements.*
 import kotlinx.android.synthetic.main.custom_controller.*
 import java.time.Duration
-import java.util.Timer
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.concurrent.timer
 import kotlin.math.log
 
@@ -35,17 +38,26 @@ class Movements : AppCompatActivity() {
     private lateinit var MovementArrayList : ArrayList<MovementsModel>
     private lateinit var simpleExoplayer: ExoPlayer
     private var timer: Timer? = null
+    private lateinit var fulltime:ArrayList<StatisticsModel>
     private var elapsedSeconds:Long=0
     private var elapsedTimeInMillis: Long = 0
     private var isVideoPlaying = false
+    private var flag=false
+    val calendar = Calendar.getInstance()
+    val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+    private val aktifActivity = Movements::class.java
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movements)
+        Log.d("TUŞ","ONCREATE")
         sqLiteHelper = SQLiteHelper(this)
+        fulltime=sqLiteHelper.getAllStats()
         //val stats = sqLiteHelper.getAllStats()
         var elapsedTimeInSeconds = 0
+
         elapsedSeconds= intent.getLongExtra("time",0)
         elapsedTimeInMillis=intent.getLongExtra("milis",0)
+        flag=intent.getBooleanExtra("flag",false)
         Log.d("ALİHAN","GELEN DEĞER:"+elapsedSeconds)
 
         //Log.d("VENUSS",stats.get(0).day_of_week)
@@ -76,7 +88,7 @@ class Movements : AppCompatActivity() {
         setSeekBackIncrementMs(5000).
         setSeekForwardIncrementMs(5000).build()
         val myView: View = findViewById(R.id.player)
-        MovementsAdapter = MovementsAdapter(MovementArrayList,simpleExoplayer,elapsedSeconds,elapsedTimeInMillis,this)
+        MovementsAdapter = MovementsAdapter(MovementArrayList,simpleExoplayer,elapsedSeconds,elapsedTimeInMillis,this,flag)
         recyclerView.adapter = MovementsAdapter
         fullscreen.setOnClickListener {
 
@@ -109,6 +121,7 @@ class Movements : AppCompatActivity() {
             isFullScreen=!isFullScreen
 
         }
+
 
 
         player.player=simpleExoplayer
@@ -182,6 +195,51 @@ class Movements : AppCompatActivity() {
 
     }
 
+    private fun addTime(day_name:String,day:Int){
+        var time= elapsedSeconds.toInt()+fulltime.get(day).spend_time
+        sqLiteHelper.instertTime(StatisticsModel(day_name,time))
+    }
+
+
+    private fun getDay(){
+        when (dayOfWeek) {
+
+            Calendar.MONDAY -> {
+                println("Bugün Pazartesi")
+                addTime("Pazartesi",0)
+            }
+            Calendar.TUESDAY -> {
+                println("Bugün Salı")
+                addTime("Salı",1)
+            }
+            Calendar.WEDNESDAY -> {
+                println("Bugün Çarşamba")
+                addTime("Çarşamba",2)
+            }
+            Calendar.THURSDAY -> {
+                println("Bugün Perşembe")
+                addTime("Perşembe",3)
+            }
+            Calendar.FRIDAY -> {
+                println("Bugün Cuma")
+                addTime("Cuma",4)
+            }
+            Calendar.SATURDAY -> {
+                println("Bugün Cumartesi")
+                addTime("Cumartesi",5)
+            }
+            Calendar.SUNDAY -> {
+                println("Bugün Pazar")
+                addTime("Pazar",6)
+            }
+
+        }
+
+    }
+
+
+
+
     fun stopTimer() {
         timer?.cancel()
         timer = null
@@ -194,6 +252,8 @@ class Movements : AppCompatActivity() {
             simpleExoplayer?.stop()
             simpleExoplayer?.release()
             finish()
+            getDay()
+
         }
         else{
             fullscreen.setImageDrawable(ContextCompat.getDrawable(applicationContext,R.drawable.fullscreen_active))
@@ -214,11 +274,56 @@ class Movements : AppCompatActivity() {
 
 
     }
+    fun flag_true() {
+        flag=true
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        simpleExoplayer.playWhenReady=false
+        if(!flag){
+            Log.d("TUŞ","Şimdi ekleme yapacağım")
+        }
+        else{
+            Log.d("TUŞ","Şimdi ekleme YAPAMAM")
+        }
+        Log.d("TUŞ","ONSTOP")
+    }
 
     override fun onPause() {
         super.onPause()
+        simpleExoplayer.playWhenReady=false
+        Log.d("TUŞ","ONPAUSE")
+        if(!flag){
+            Log.d("TUŞ","Şimdi ekleme yapacağım")
+            getDay()
+        }
+        else{
+            Log.d("TUŞ","Şimdi ekleme YAPAMAM")
+        }
     }
     override fun onDestroy() {
         super.onDestroy()
+        simpleExoplayer.playWhenReady=false
+        if(!flag){
+            Log.d("TUŞ","Şimdi ekleme yapacağım")
+        }
+        else{
+            Log.d("TUŞ","Şimdi ekleme YAPAMAM")
+        }
+        Log.d("TUŞ","ONDESTROY")
     }
+    override fun onResume() {
+        super.onResume()
+        Log.d("TUŞ","ONRESUME")
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("TUŞ","ONSTART")
+    }
+
+
 }

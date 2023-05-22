@@ -13,9 +13,9 @@ import com.google.android.exoplayer2.ExoPlayer
 import java.util.Timer
 import java.util.logging.Handler
 
-class MovementsAdapter(private val MovementList: ArrayList<MovementsModel>, private val exoPlayer: ExoPlayer,private var elapsedSeconds:Long,private var elapsedTimeInMillis:Long,private val movements: Movements) : RecyclerView.Adapter<MovementsAdapter.MovementHolder>(){
+class MovementsAdapter(private val MovementList: ArrayList<MovementsModel>, private val exoPlayer: ExoPlayer,private var elapsedSeconds:Long,private var elapsedTimeInMillis:Long,private val movements: Movements,private var flag:Boolean) : RecyclerView.Adapter<MovementsAdapter.MovementHolder>(){
     private val handler = android.os.Handler(Looper.getMainLooper())
-    val arrayList = ArrayList<String>() // Gönderilecek ArrayList
+    val arrayList = ArrayList<String>() // GÃ¶nderilecek ArrayList
 
 
 
@@ -68,13 +68,15 @@ class MovementsAdapter(private val MovementList: ArrayList<MovementsModel>, priv
             exoPlayer.playWhenReady = false
 
             movements.stopTimer()
-
+            movements.flag_true()
+            flag = true
             val intent = Intent(holder.itemView.context, MovementsVideo::class.java)
 
             intent.putStringArrayListExtra("arrayListKey", arrayList)
             intent.putExtra("intKey", position + 1)
             intent.putExtra("time", elapsedSeconds)
             intent.putExtra("milis", elapsedTimeInMillis)
+            intent.putExtra("flag",flag)
 
             holder.itemView.context.startActivity(intent)
 
