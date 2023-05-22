@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "539513798546",
+    "project_id": "tai-chi-ve-parkinson",
+    "storage_bucket": "tai-chi-ve-parkinson.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539513798546:android:c1464d4af9015bf1574b4b",
+        "android_client_info": {
+          "package_name": "com.example.parkinsonvethaichi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "539513798546-86vg8u8ii0qr3kidvc6ief6q3rhfep8q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeuurwHL1eIT16Ytr819bZWkoOIxJ7Afg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "539513798546-86vg8u8ii0qr3kidvc6ief6q3rhfep8q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

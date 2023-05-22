@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -14,29 +18,36 @@
         android:theme="@style/Theme.ParkinsonVeThaiChi"
         tools:targetApi="31">
         <activity
+            android:name=".MovementsVideo"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:exported="false"
+            android:noHistory="true"
+            android:parentActivityName=".Movements"
+            android:theme="@style/Theme.AppCompat.Light.NoAction.FullScreen"
+            />
+        <activity
             android:name=".Statistic"
             android:exported="false"
-            android:parentActivityName=".HomeActivity"
             android:noHistory="true"
-            >
+            android:parentActivityName=".HomeActivity">
             <meta-data
                 android:name="android.app.lib_name"
-                android:value=""
-                />
+                android:value="" />
         </activity>
         <activity
             android:name=".StatiscticPassAnimation"
             android:exported="false"
+            android:noHistory="true"
             >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".Medicine"
             android:exported="false"
-            android:parentActivityName=".HomeActivity">
+            android:parentActivityName=".HomeActivity"
+            android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -44,6 +55,7 @@
         <activity
             android:name=".MedicinePassAnimation"
             android:exported="false"
+            android:noHistory="true"
             >
             <meta-data
                 android:name="android.app.lib_name"
@@ -52,9 +64,8 @@
         <activity
             android:name=".TaiChiParkinson"
             android:exported="false"
-            android:parentActivityName=".HomeActivity"
             android:noHistory="true"
-            >
+            android:parentActivityName=".HomeActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -62,6 +73,7 @@
         <activity
             android:name=".TaiChiParkinsonPassAnimation"
             android:exported="false"
+            android:noHistory="true"
             >
             <meta-data
                 android:name="android.app.lib_name"
@@ -69,17 +81,20 @@
         </activity>
         <activity
             android:name=".Movements"
+            android:configChanges="orientation|screenSize|screenLayout"
             android:exported="false"
-            android:parentActivityName=".HomeActivity"
             android:noHistory="true"
-            >
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoAction.FullScreen">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity
             android:name=".MovementPassAnimation"
             android:exported="false"
+            android:noHistory="true"
             >
             <meta-data
                 android:name="android.app.lib_name"
@@ -87,8 +102,7 @@
         </activity>
         <activity
             android:name=".HomeActivity"
-            android:exported="false"
-            >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -96,8 +110,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:noHistory="true"
-            >
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
