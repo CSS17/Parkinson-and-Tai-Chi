@@ -247,6 +247,7 @@ class Movements : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (!isFullScreen){
+            stopTimer()
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             simpleExoplayer?.stop()

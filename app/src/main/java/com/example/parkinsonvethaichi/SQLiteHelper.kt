@@ -39,12 +39,12 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,nu
                 + ")")
         db?.execSQL(createStatisticTable)
 
-       /* for (day in listOf("Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar")) {
+        for (day in listOf("Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar")) {
             val contentValues = ContentValues()
             contentValues.put("day_of_week", day)
             contentValues.put("spend_time", 0)
             db?.insert(TBL_STATS, null, contentValues)
-        }*/
+        }
 
 
     }
