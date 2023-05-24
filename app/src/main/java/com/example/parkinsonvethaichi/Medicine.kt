@@ -108,7 +108,8 @@ class Medicine : AppCompatActivity() {
                 getMedicines()
                 Log.d("aaa",medicine_hour+":"+medicine_minute)
                 // Alarm ayarla
-                setAlarm(mdc.medicine_hour.toInt(),mdc.medicine_minute.toInt())
+                Log.d("BEBEK ",status.toString())
+                setAlarm(mdc.medicine_hour.toInt(),mdc.medicine_minute.toInt(),status.toInt())
 
 
             } else {
@@ -131,13 +132,14 @@ class Medicine : AppCompatActivity() {
 
     private fun deleteMedicine(id:Int){
 
-       val builder = AlertDialog.Builder(this)
+        val builder = AlertDialog.Builder(this)
         builder.setMessage("İlaç silinsin mi?")
         builder.setCancelable(true)
         builder.setPositiveButton("Evet") { dialog, _ ->
             sqLiteHelper.deleteRecord(id)
             getMedicines()
             dialog.dismiss()
+            cancelAlarm(id)
             Toast.makeText(this,"İlaç Silindi",Toast.LENGTH_SHORT).show()
         }
 
@@ -165,34 +167,63 @@ class Medicine : AppCompatActivity() {
         recyclerView.adapter = medicineAdapter
 
     }
-    private fun setAlarm(medicineHour: Int, medicineMinute: Int) {
-        Log.d("KEDİ",medicineHour.toString()+":"+medicineMinute.toString())
-        val calendar = Calendar.getInstance()
-        calendar.apply {
+    private fun setAlarm(medicineHour: Int, medicineMinute: Int, medicineId: Int) {
+        val alarmIntent = Intent(this, AlarmReceiver::class.java).apply {
+            putExtra("MEDICINE_ID", medicineId)
+            putExtra("medicine_name", medicine_name)
+        }
+
+        val requestCode = medicineId // Rastgele bir requestCode oluştur
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            requestCode,
+            alarmIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val calendar = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, medicineHour)
             set(Calendar.MINUTE, medicineMinute)
             set(Calendar.SECOND, 0)
-            // İlgili saat bugünden önceyse alarmı bir sonraki gün için ayarla
             if (before(Calendar.getInstance())) {
                 add(Calendar.DATE, 1)
             }
         }
 
-        val alarmIntent = Intent(this, AlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(
-            this,
-            0,
-            alarmIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        // İşlemi iki aşamada gerçekleştiriyoruz:
+        // 1. Yeni bir PendingIntent oluşturarak bir sonraki gün için alarmı ayarla
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
             AlarmManager.INTERVAL_DAY,
             pendingIntent
         )
+
+        // 2. Önceki PendingIntent'i iptal et
+
+
+    }
+
+    private fun cancelAlarm(medicineId: Int) {
+        val alarmIntent = Intent(this, AlarmReceiver::class.java)
+        val requestCode = medicineId // Medicine ID'sini requestCode olarak kullan
+
+        // İptal edilecek PendingIntent'i oluştur
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            requestCode,
+            alarmIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        alarmManager.cancel(pendingIntent)
+
+        // İptal edilen alarmı kaldırarak ilgili bildirimi gönderme işlemini durdurun
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancel(medicineId)
     }
 
     private fun createNotificationChannel() {

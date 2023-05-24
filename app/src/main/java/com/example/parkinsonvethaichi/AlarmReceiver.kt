@@ -13,14 +13,17 @@ import java.util.Calendar
 
 class AlarmReceiver : BroadcastReceiver() {
     private val CHANNEL_ID = "my_channel_id"
-    private val NOTIFICATION_ID = 1
+    private var NOTIFICATION_ID = 1
+
 
     override fun onReceive(context: Context, intent: Intent) {
         // Bildirim gösterme kodunu buraya ekleyin
-        showNotification(context, "İlaç Bildirimi", "İlacını al bebek")
+        val medicineName = intent.getStringExtra("medicine_name")
+        val medicineId = intent.getIntExtra("MEDICINE_ID", 0)
+        showNotification(context, "İlaç Bildirimi", "İlacını almayı unutma: $medicineName",medicineId)
     }
 
-    private fun showNotification(context: Context, title: String, message: String) {
+    private fun showNotification(context: Context, title: String, message: String,medicineId: Int) {
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -41,7 +44,7 @@ class AlarmReceiver : BroadcastReceiver() {
                 .setContentTitle(title)
                 .setContentText(message)
                 .setAutoCancel(true)
-
+        NOTIFICATION_ID = medicineId
         // Bildirimi göster
         notificationManager.notify(NOTIFICATION_ID, builder.build())
     }

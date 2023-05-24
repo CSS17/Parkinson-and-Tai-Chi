@@ -62,9 +62,9 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,nu
         contentValues.put(MEDICINE_NAME,mdc.medicine_name)
         contentValues.put(MEDICINE_HOUR,mdc.medicine_hour)
         contentValues.put(MEDICINE_MINUTE,mdc.medicine_minute)
-        val success = db.insert(TBL_MEDICINE,null,contentValues)
+        val id = db.insert(TBL_MEDICINE, null, contentValues)
         db.close()
-        return success
+        return id
     }
 
     fun instertTime(stats:StatisticsModel){
