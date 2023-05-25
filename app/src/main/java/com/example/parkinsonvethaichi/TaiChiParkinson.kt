@@ -38,6 +38,7 @@ class TaiChiParkinson : AppCompatActivity() {
         mediaPlayer5 = MediaPlayer.create(this, R.raw.record5)
         mediaPlayer6 = MediaPlayer.create(this, R.raw.record6)
         mediaPlayer7 = MediaPlayer.create(this, R.raw.record7)
+
         val mediaPlayers= arrayOf(mediaPlayer1,mediaPlayer2,mediaPlayer3,mediaPlayer4,mediaPlayer5,mediaPlayer6,mediaPlayer7)
 
         fun stopMedia(){

@@ -18,13 +18,12 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         supportActionBar?.hide()
-
         val constraints = Constraints.Builder()
             .setRequiresCharging(false)
             .setRequiresBatteryNotLow(true)
             .build()
 
-        val myWorkRequest : PeriodicWorkRequest = PeriodicWorkRequestBuilder<RefreshDataBase>(15,TimeUnit.MINUTES)
+        val myWorkRequest : PeriodicWorkRequest = PeriodicWorkRequestBuilder<RefreshDataBase>(7,TimeUnit.DAYS)
             .setInitialDelay(15, TimeUnit.MINUTES)
             .setConstraints(constraints)
             .build()

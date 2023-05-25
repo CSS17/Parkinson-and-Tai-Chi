@@ -15,7 +15,7 @@ import java.util.logging.Handler
 
 class MovementsAdapter(private val MovementList: ArrayList<MovementsModel>, private val exoPlayer: ExoPlayer,private var elapsedSeconds:Long,private var elapsedTimeInMillis:Long,private val movements: Movements,private var flag:Boolean) : RecyclerView.Adapter<MovementsAdapter.MovementHolder>(){
     private val handler = android.os.Handler(Looper.getMainLooper())
-    val arrayList = ArrayList<String>() // GÃ¶nderilecek ArrayList
+    val arrayList = ArrayList<String>()
 
 
 
