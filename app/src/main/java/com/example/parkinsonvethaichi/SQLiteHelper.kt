@@ -39,12 +39,12 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,nu
                 + ")")
         db?.execSQL(createStatisticTable)
 
-       /* for (day in listOf("Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar")) {
+        for (day in listOf("Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar")) {
             val contentValues = ContentValues()
             contentValues.put("day_of_week", day)
             contentValues.put("spend_time", 0)
             db?.insert(TBL_STATS, null, contentValues)
-        }*/
+        }
 
 
     }
@@ -62,9 +62,9 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,nu
         contentValues.put(MEDICINE_NAME,mdc.medicine_name)
         contentValues.put(MEDICINE_HOUR,mdc.medicine_hour)
         contentValues.put(MEDICINE_MINUTE,mdc.medicine_minute)
-        val success = db.insert(TBL_MEDICINE,null,contentValues)
+        val id = db.insert(TBL_MEDICINE, null, contentValues)
         db.close()
-        return success
+        return id
     }
 
     fun instertTime(stats:StatisticsModel){
@@ -158,6 +158,11 @@ class SQLiteHelper(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME,nu
         val whereArgs = arrayOf("$medicineId")
         db.delete(tableName, whereClause, whereArgs)
         db.close()
+    }
+
+    fun resetStats(){
+        val db = this.writableDatabase
+        db.execSQL("UPDATE tbl_stats SET spend_time = 0");
     }
 
 }

@@ -2,10 +2,15 @@ package com.example.parkinsonvethaichi
 
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.work.Constraints
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequest
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import java.util.concurrent.TimeUnit
 
 
 class HomeActivity : AppCompatActivity() {
@@ -13,6 +18,21 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         supportActionBar?.hide()
+        val constraints = Constraints.Builder()
+            .setRequiresCharging(false)
+            .setRequiresBatteryNotLow(true)
+            .build()
+
+        val myWorkRequest : PeriodicWorkRequest = PeriodicWorkRequestBuilder<RefreshDataBase>(7,TimeUnit.DAYS)
+            .setInitialDelay(7, TimeUnit.DAYS)
+            .setConstraints(constraints)
+            .build()
+
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            "myWork",
+            ExistingPeriodicWorkPolicy.KEEP,
+            myWorkRequest
+        )
 
     }
 
