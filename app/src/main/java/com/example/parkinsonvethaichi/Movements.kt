@@ -85,7 +85,7 @@ class Movements : AppCompatActivity() {
             timer?.cancel()
 
             for (i in 1..24) {
-                val movement = MovementsModel(i.toString() + "."+" Hareket")
+                val movement = MovementsModel(i.toString() + "."+" Egzersiz")
                 MovementArrayList.add(movement)
             }
             Log.d("Saturn",MovementArrayList.get(10).Movements_name)

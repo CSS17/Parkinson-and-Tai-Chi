@@ -24,7 +24,7 @@ class HomeActivity : AppCompatActivity() {
             .build()
 
         val myWorkRequest : PeriodicWorkRequest = PeriodicWorkRequestBuilder<RefreshDataBase>(7,TimeUnit.DAYS)
-            .setInitialDelay(15, TimeUnit.MINUTES)
+            .setInitialDelay(7, TimeUnit.DAYS)
             .setConstraints(constraints)
             .build()
 
