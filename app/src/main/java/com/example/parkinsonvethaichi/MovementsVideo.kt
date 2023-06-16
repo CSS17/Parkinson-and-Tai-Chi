@@ -23,12 +23,8 @@ import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_movements.*
-import kotlinx.android.synthetic.main.activity_movements_video.button2
-import kotlinx.android.synthetic.main.activity_movements_video.button3
-import kotlinx.android.synthetic.main.activity_movements_video.movementtitle
+import kotlinx.android.synthetic.main.activity_movements_video.*
 
-import kotlinx.android.synthetic.main.activity_movements_video.player2
-import kotlinx.android.synthetic.main.activity_movements_video.progress_bar2
 import kotlinx.android.synthetic.main.custom_controller.*
 import java.util.*
 import kotlin.concurrent.timer
@@ -98,6 +94,7 @@ class MovementsVideo : AppCompatActivity() {
                         // Hata durumunda işlem yapın
                     }
                 }
+
             }
 
             button3.setOnClickListener(){
@@ -208,6 +205,11 @@ class MovementsVideo : AppCompatActivity() {
             }.addOnFailureListener { exception ->
                 // Hata durumunda işlem yapın
             }
+        }
+        camerabutton.setOnClickListener {
+            Log.d("EXERCISE","BUTTON CLICKED")
+            val intent = Intent(this, MovementControl::class.java)
+            startActivity(intent)
         }
 
     }

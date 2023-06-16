@@ -36,11 +36,31 @@
             android:layout_gravity="center"></ProgressBar>
 
     </com.google.android.exoplayer2.ui.PlayerView>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="325dp">
+        android:layout_marginTop="120dp">
+
+        <Button
+            android:id="@+id/camerabutton"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:background="@color/splash_screen_background"
+            android:text="Egzersizi Dene"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="140dp">
 
         <Button
             android:id="@+id/button2"
