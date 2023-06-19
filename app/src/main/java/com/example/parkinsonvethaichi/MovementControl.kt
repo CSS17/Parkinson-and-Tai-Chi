@@ -44,7 +44,7 @@ class MovementControl : AppCompatActivity() {
         handlerThread= HandlerThread("videoThread")
         handlerThread.start()
         handler=Handler(handlerThread.looper)
-        paint.setColor(Color.YELLOW)
+        paint.setColor(Color.RED)
         texture_view.surfaceTextureListener=object :TextureView.SurfaceTextureListener{
             override fun onSurfaceTextureAvailable(p0: SurfaceTexture, p1: Int, p2: Int) {
                 openCamera()
@@ -80,13 +80,56 @@ class MovementControl : AppCompatActivity() {
                 var h = bitmap.height
                 var w = bitmap.width
                 var x = 0
+                val radius = 10f
+                val lineThickness = 5f
 
                 while(x <= 49){
                     if(outputFeature0.get(x+2) > 0.45){
-                        canvas.drawCircle(outputFeature0.get(x+1)*w,outputFeature0.get(x)*h,10f,paint)
+                        val cx = outputFeature0.get(x+1) * w
+                        val cy = outputFeature0.get(x) * h
+                        if (x !in 0..12) {
+                            canvas.drawCircle(cx, cy, radius, paint)
+                        }
+                        //canvas.drawCircle(cx, cy, radius, paint)
                     }
-                    x+=3
+                    x += 3
                 }
+
+                // Draw lines between points
+                val connections = arrayOf(
+                    Pair(9,7), //Sol El Bileği-Sol Dirsek
+                    Pair(7,5), //Sol Dirsek-Sol Omuz
+                    Pair(5, 6),  // Sol Omuz- Sağ Omuz
+                    Pair(6, 8),  // Sağ Omuz- Sağ Dirsek
+                    Pair(8, 10),  // Sağ Dirsek - Sağ El Bileği
+                    Pair(5, 11), // Sol Omuz-Sol Kalça
+                    Pair(11, 13),// Sol Kalça- Sol Diz
+                    Pair(13, 15),  //Sol Diz- Sol Ayak Bileği
+                    Pair(6, 12),  // Sağ Omuz- Sağ Kalça
+                    Pair(12, 14),  //Sağ Kalça- Sağ Diz
+                    Pair(14, 16),  //Sağ Diz - Sağ Ayak Bileği
+                    Pair(11, 12),  //Sol Kalça- Sağ Kalça
+
+                )
+
+                paint.strokeWidth = lineThickness
+
+                for (connection in connections) {
+                    val startIndex = connection.first * 3
+                    val endIndex = connection.second * 3
+
+                    if (startIndex >= outputFeature0.size || endIndex >= outputFeature0.size) {
+                        continue
+                    }
+
+                    val startX = outputFeature0[startIndex + 1] * w
+                    val startY = outputFeature0[startIndex] * h
+                    val endX = outputFeature0[endIndex + 1] * w
+                    val endY = outputFeature0[endIndex] * h
+
+                    canvas.drawLine(startX, startY, endX, endY, paint)
+                }
+
                 imageView.setImageBitmap(mutable)
 // Releases model resources if no longer used.
 
