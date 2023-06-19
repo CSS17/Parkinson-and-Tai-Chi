@@ -159,7 +159,7 @@ class MovementControl : AppCompatActivity() {
                     override fun onConfigureFailed(p0: CameraCaptureSession) {
 
                     }
-                                                                                                    },handler)
+                },handler)
             }
 
             override fun onDisconnected(p0: CameraDevice) {
@@ -169,7 +169,7 @@ class MovementControl : AppCompatActivity() {
             override fun onError(p0: CameraDevice, p1: Int) {
 
             }
-                                                                                                  },handler)
+        },handler)
     }
 
 
